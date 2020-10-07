@@ -8,4 +8,4 @@ I'm a third year PhD student at UCSD in Computer Science in lattice cryptography
 
 ### Contact me
 
-[email@domain.com](mailto:mdschultz@eng.ucsd.edu)
+[mdschultz@eng.ucsd.edu](mailto:mdschultz@eng.ucsd.edu)
