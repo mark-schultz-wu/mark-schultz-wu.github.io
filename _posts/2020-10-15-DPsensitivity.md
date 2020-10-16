@@ -176,7 +176,8 @@ $$\nabla f(x) = ((\partial/\partial x_1)f(x), \dots, (\partial/\partial x_n)f(x)
 Before proceeding, we need to note that (when the codomain of $$f$$ is dimension
 $$>1$$) that $$\nabla f(x)$$ is most naturally a *matrix*, whose $$i$$th column
 is $$(\partial/\partial x_i)f(x)$$.
-We will define the norm of a matrix to be its *operator norm*.
+We will define the norm of a matrix to be its [*operator
+norm*](https://en.wikipedia.org/wiki/Operator_norm).
 The general definition of this is included below:
 
 > Let $$M : V\to W$$ be a linear operator, and let $$\lVert\cdot\rVert_V$$,
