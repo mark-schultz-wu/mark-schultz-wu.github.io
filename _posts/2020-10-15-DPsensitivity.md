@@ -356,12 +356,14 @@ If we then want to compute the noise sensitivity from this, we need to compute:
 
 $$\begin{aligned}\max_{\vec x \in\mathbb{N}^{|\mathcal{X}|}}\max_i \lVert (\partial/\partial
 x_i)f(\vec x)\rVert_p&= \max_{\vec x\in \mathbb{N}^{|\mathcal{X}|}}\max_i
-\frac{\lVert \mathbb{E}[\vec x - e_i]\rVert_p}{\lVert x + e_i\rVert_1}
+\frac{\lVert 123\mathbb{E}[\vec x - e_i]\rVert_p}{\lVert x + e_i\rVert_1}
 \end{aligned}
 $$
 
-This can clearly be seen to be maximized when $$\vec x$$ is zero, and $$i = 122$$,
-where the noise sensitivity should reduce to being $$122$$, as expected.
+The mean is over the set of ages $$\{0,1,\dots, 122\}$$.
+This mean can be maximized when $$i = 122$$ and $$\vec{x} = 0$$ (there are some
+small issues with the resulting count being negative which I will ignore), where
+the mean is $$1$$, and thus the sensitivity is 123, as expected.
 I get the impression this is essentially the same computation you would do in
 the "standard" framework though.
 
