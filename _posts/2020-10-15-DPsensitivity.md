@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Local Sensitivity as the Operator Norm of a Derivative
+title: Global Sensitivity as the Operator Norm of a Derivative
 tags: differential-privacy weird-construction
 comments: true
 ---
@@ -50,7 +50,7 @@ left-hand side.
 # The sensitivity of a function
 
 As mentioned before, I will use the notation of Dwork and Roth's book.
-Definition 3.1 and 3.8 define the $$\ell_1$$ and $$\ell_2$$ sensitivities.
+Definition 3.1 and 3.8 define the (global) $$\ell_1$$ and $$\ell_2$$ sensitivities.
 Upon reading both of them, there is a straightforward generalization to
 $$\ell_p$$ sensitivities, which I give below:
 
@@ -375,6 +375,11 @@ There are a couple of cool ideas this viewpoint raises.
 The most basic are *can you repeat this with other notions of sensitivity*?
 The "most ambitious" hope of this would to provide some unified "geometric"
 framework for sensitivity in differential privacy.
+The generalization to local sensitivity seems straightforward (rather than
+maximizing over $$\vec x$$, the smooth sensitivity at $$\vec x$$ seems to just
+be $$\lVert \nabla f(\vec x)\rVert_p$$).
+There are other sensitivities defined (such as smooth sensitivity), which I do
+not know much about.
 
 Another kind of cool idea would be to connect this geometric intuition
 *directly* to differential privacy via things like the Laplace and Gaussian
