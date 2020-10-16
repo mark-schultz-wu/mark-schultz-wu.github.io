@@ -3,7 +3,7 @@ layout: post
 title: The Sensitivity in Differential Privacy as a Derivative Bound
 ---
 
-Differential Privacy is a quite interesting field, which has seen wide interest
+Differential Privacy is an area which has seen wide interest
 (both in academia and real-life) in recent years.
 But what *is* differential privacy?
 As I don't work in this area, I'm rather ill-suited for saying anything --- but
@@ -33,8 +33,10 @@ In particular [The Algorithmic Foundations of Differential
 Privacy](https://privacytools.seas.harvard.edu/files/privacytools/files/the_algorithmic_foundations_of_differential_privacy_0.pdf) by Dwork and Roth is great.
 I'll defer to them for an introduction, and even adopt their notation.
 Really, the entirety of this post is pointing out that a common parameter within
-differential privacy can be interpreted in terms of a derivative bound, and is
-hence differential privacy is "differential".
+differential privacy can be interpreted in terms of a familar looking equation,
+if you simply redefine what all of the symbols in this equation mean.
+Of course, this is still interesting because these definitions are "natural" in
+a certain sense, as you will see below.
 
 # The Sensitivity as a Derivative Bound
 
@@ -56,11 +58,11 @@ finite set $$\mathcal{X}$$.
 Then the *database* is a collection of records, where you count the multiplicity
 of each record.
 It therefore lives in $$\mathbb{N}^{|\mathcal{X}|}$$.
-Next, one notes that the condition that $$\lVert x-y\rVert_1 = 1$$ can be
-interpreted as "the databases $$x$$ and $$y$$ are neighboring", in that they
+Next, one notes that the condition that $$\lVert \vec x-\vec y\rVert_1 = 1$$ can be
+interpreted as "the databases $$\vec x$$ and $$\vec y$$ are neighboring", in that they
 differ in a single record, and that record differs in value by 1.
-Finally, the condition $$\lVert f(x) - f(y)\rVert_p$$ is interpreted as
-quantifying how much $$f(x) - f(y)$$ can change on neighboring records.
+Finally, the condition $$\lVert f(\vec x) - f(\vec y)\rVert_p$$ is interpreted as
+quantifying how much $$f(\vec x) - f(\vec y)$$ can change on neighboring records.
 
 This is a great way to explain it, and probably how I'll explain it going
 forward.
@@ -89,6 +91,8 @@ $$f'(x) = \frac{f(x+1) - f(x)}{1} = f(x+1) - f(x)$$
 This definition is fairly standard (known as the [forward difference
 operator](https://en.wikipedia.org/wiki/Finite_difference)), and denoted
 $$\Delta(f)$$.
+As $$\Delta$$ is *already* a super overloaded symbol in this post, I will
+instead refer to it as $$f'(x)$$.
 
 Note that the forward difference is "truly a derivative".
 In particular, there is a general notion of a derivative (called a
