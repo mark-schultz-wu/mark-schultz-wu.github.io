@@ -372,7 +372,7 @@ the "standard" framework though.
 There are a couple of cool ideas this viewpoint raises.
 The most basic are *can you repeat this with other notions of sensitivity*?
 The "most ambitious" hope of this would to provide some unified "geometric"
-framework for sensitivity in differentiaal privacy.
+framework for sensitivity in differential privacy.
 
 Another kind of cool idea would be to connect this geometric intuition
 *directly* to differential privacy via things like the Laplace and Gaussian
