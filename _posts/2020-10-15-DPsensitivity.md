@@ -319,7 +319,7 @@ example.
 
 The average age under the first definition is:
 
-$$\mathsf{mean}(\vec{x}) = \frac{\sum_{i = 0}^{122} i \vec{x}_i}{\sum_{i = 0}^{122 \vec{x}_i}} \sim \frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}$$
+$$\mathsf{mean}(\vec{x}) = \frac{\sum_{i = 0}^{122} i \vec{x}_i}{\sum_{i = 0}^{122} \vec{x}_i} \sim \frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}$$
 
 This still has a fairly sensible discrete gradient:
 
@@ -330,14 +330,14 @@ $$\begin{aligned}
 &= \frac{\mathbb{E}[\vec x] + i}{\lVert \vec x\rVert_1 + 1} -
 \frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}\\
 &= \frac{\lVert \vec x\rVert_1\mathbb{E}[\vec x] + i\lVert \vec x\rVert_1 -
-(lVert \vec x\rVert_1 + 1)\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1(\lVert \vec
+(\lVert \vec x\rVert_1 + 1)\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1(\lVert \vec
 x\rVert_1 + 1)}\\
 &= \frac{i - \mathbb{E}[\vec x]}{\lVert \vec x\rVert_1 + 1}\\
 &= \frac{\mathbb{E}[e_i - \vec x]}{\lVert x \rVert_1 + 1}
 \end{aligned}$$
 
 Note that we can convert from $$\lVert_1 \vec x + e_i\rVert_1 \to \lVert \vec
-x\rVert_1 + 1$$ as $$\vec x\in\mathbb{N}^{|\mathcal{X}|} (so the absolute value
+x\rVert_1 + 1$$ as $$\vec x\in\mathbb{N}^{|\mathcal{X}|}$$ (so the absolute value
 in the definition of the $$\ell_1$$ norm is immaterial), but we cannot
 necessairly convert back from $$\lVert \vec x \rVert_1 + 1$$ to $$\lVert \vec x
 - e_i\rVert_1 = \lVert e_i - \vec x\rVert_1$$.
@@ -347,7 +347,7 @@ $$\begin{aligned}(\partial/\partial x_i)\mathsf{mean}(\vec x) &= \frac{\mathbb{E
 x]}{\lVert \vec x\rVert_1 + 1}\\
 &= \frac{\lVert e_i - \vec x\rVert_1}{\lVert \vec x\rVert_1 + 1}\mathsf{mean}(e_i - \vec
 x)\\
-&= -\frac{\lVert \vec x - e_i\rVert_1}{\lVert \vec x + e_i\rVert_1}f(\vec x - e_i)
+&= -\frac{\lVert \vec x - e_i\rVert_1}{\lVert \vec x + e_i\rVert_1}\mathsf{mean}(\vec x - e_i)
 \end{aligned}$$
 
 If we then want to compute the noise sensitivity from this, we need to compute:
@@ -363,6 +363,8 @@ where the noise sensitivity should reduce to being $$122$$, as expected.
 I get the impression this is essentially the same computation you would do in
 the "standard" framework though.
 
+# Potential Extensions
+
 The only real benefit I can view of this is that one can often define a
 "calculus" of differential operators quite easily, so phrasing the sensitivity
 in terms of derivatives may make it easier to provide "automatic sensitivity
@@ -375,7 +377,8 @@ with the potential extensions of this to:
 1. A "calculus of sensitivity analysis", with the goal of building some tool to
    automate sensitivity analysis
 2. Extending it to concepts such as local sensitivity (which I have never really
-   looked into)
+   looked into --- I just know that it is another concept called sensitivity, so
+   may fit into a similar framework)
 3. Looking for some "geometric" characterization of differential privacy by
    "working backwards" from this definition of local sensitivity, and the
    $$(\epsilon, \delta)$$-differentially private mechanisms in the $$\ell_p$$
