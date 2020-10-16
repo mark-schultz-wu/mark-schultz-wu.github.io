@@ -78,6 +78,27 @@ But what *is* a derivative for a function with the domain $$\mathbb{N}^{|\mathca
 
 ## Discrete Derivatives
 
+Throughout this section, I will define "discrete" analogus of the:
+
+1. Derivative $$f'$$
+2. Partial Derivative $$(\partial/\partial x_i)f$$
+3. Gradient $$\nabla f$$
+
+I will do this by defining a (reasonable) "discrete" analogue of $$f'$$, and
+then showing that in the continuous case, one can define $$(\partial/\partial
+x_i)f$$ abstractly in terms of $$f'$$, and $$\nabla f$$ abstractly in terms of
+$$(\partial/\partial x_i)f$$.
+I'll then shove the discrete version of $$f'$$ through this set of
+transformations to end up with a discrete version of $$\nabla f$$.
+This "pipeline" is the sense in which I mean that my definition of the discrete
+gradient is *natural*.
+
+To highlight the similarities throughout this, I will use the same notation for
+discrete and continuous derivatives.
+If one wanted to actually compute with these, you could just check the domain of
+$$f$$ to see which of the two methods to apply.
+Anyway, onwards to technical content.
+
 First, I'll restrict to "1 dimensional" functions $$f :
 \mathbb{N}\to\mathbb{R}$$, before generalizing to something more useful.
 
