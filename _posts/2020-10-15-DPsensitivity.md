@@ -93,21 +93,6 @@ $$\Delta(f)$$.
 As $$\Delta$$ is *already* a super overloaded symbol in this post, I will
 instead refer to it as $$f'(x)$$.
 
-Note that the forward difference is "truly a derivative".
-In particular, there is a general notion of a derivative (called a
-[derivation](https://en.wikipedia.org/wiki/Derivation_(differential_algebra)))
-of operators that "behave like the calculus derivative".
-These are operators $$D$$ that:
-
-1. Are linear maps
-2. Satisfy the "product rule":
-$$
-D(fg) = fD(g) + D(f)g
-$$
-
-Clearly the 1-dimensional continuous derivative satisfies these.
-The forward difference does as well.
-
 How do we generalize (continuous) derivatives to higher dimensions?
 The way that most people learn is the [partial
 derivative](https://en.wikipedia.org/wiki/Partial_derivative#Formal_definition):
@@ -143,9 +128,7 @@ When applied to the discrete derivative, one gets that:
 I'll quickly mention that (something close to this) [seems like it is used *some places*](https://en.wikipedia.org/wiki/Finite_difference#Multivariate_finite_differences).
 The interpretation of the partial derivative as the "standard derivative" 
 
-Due to the way I wrote it above, I suspect that for each fixed $$x_i$$ that
-$$(\partial/\partial x_i)$$ is still a derivation, although it doesn't matter in
-particular so I won't bother verifying it. For further motivation for why this
+For further motivation for why this
 may be a sensible "discrete partial derivative", I'll point to a conceptually close definition of "$$\mathbb{F}_2$$-partial derivatives", which take a similar form (such as in [this
 paper](http://web.cs.ucla.edu/~sherstov/pdf/directional.pdf), near theorem 1.5).
 
