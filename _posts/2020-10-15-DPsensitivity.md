@@ -64,11 +64,10 @@ differ in a single record, and that record differs in value by 1.
 Finally, the condition $$\lVert f(\vec x) - f(\vec y)\rVert_p$$ is interpreted as
 quantifying how much $$f(\vec x) - f(\vec y)$$ can change on neighboring records.
 
-This is a great way to explain it, and probably how I'll explain it going
-forward.
-Still, one can reinterpret as a bound on the first derivative of $$f$$.
-Of course, first one needs to *define* the derivative for a function with domain
-$$\mathbb{N}^{|\mathcal{X}|}$$.
+Given language like "The $$\ell_p$$ sensitivity quantifies how much a function
+$$f$$ can change on adjacent points", it seems entirely unsurprising that you
+can characterize it in terms of a derivative-like concept.
+But what *is* a derivative for a function with the domain $$\mathbb{N}^{|\mathcal{X}|}$$?
 
 ## Discrete Derivatives
 
