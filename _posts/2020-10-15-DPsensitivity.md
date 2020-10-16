@@ -319,21 +319,24 @@ example.
 
 The average age under the first definition is:
 
-$$\mathsf{mean}(\vec{x}) = \frac{\sum_{i = 0}^{122} i \vec{x}_i}{\sum_{i = 0}^{122} \vec{x}_i} \sim \frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}$$
+$$\mathsf{mean}(\vec{x}) = \frac{\sum_{i = 0}^{122} i \vec{x}_i}{\sum_{i = 0}^{122} \vec{x}_i} \sim \frac{123\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}$$
 
+Here, the expectation is taken with respect to a uniform distribution on
+$$\{0,1,\dots, 122\}$$ (a set of size $$123$$).
+I use it mostly as compact notation for the sum.
 This still has a fairly sensible discrete gradient:
 
 $$\begin{aligned}
 (\partial/\partial x_i)f(\vec x) &= \mathsf{mean}(\vec x + e_i) - \mathsf{mean}(\vec x) \\
-&=\frac{\mathbb{E}[\vec x + e_i]}{\lVert \vec x + e_i\rVert_1} -
-\frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}\\
-&= \frac{\mathbb{E}[\vec x] + i}{\lVert \vec x\rVert_1 + 1} -
-\frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}\\
-&= \frac{\lVert \vec x\rVert_1\mathbb{E}[\vec x] + i\lVert \vec x\rVert_1 -
+&=\frac{123\mathbb{E}[\vec x + e_i]}{\lVert \vec x + e_i\rVert_1} -
+\frac{123\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}\\
+&= 123\left(\frac{\mathbb{E}[\vec x] + i}{\lVert \vec x\rVert_1 + 1} -
+\frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}\right)\\
+&= 123\left(\frac{\lVert \vec x\rVert_1\mathbb{E}[\vec x] + i\lVert \vec x\rVert_1 -
 (\lVert \vec x\rVert_1 + 1)\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1(\lVert \vec
-x\rVert_1 + 1)}\\
-&= \frac{i - \mathbb{E}[\vec x]}{\lVert \vec x\rVert_1 + 1}\\
-&= \frac{\mathbb{E}[e_i - \vec x]}{\lVert x \rVert_1 + 1}
+x\rVert_1 + 1)}\right)\\
+&= 123\frac{i - \mathbb{E}[\vec x]}{\lVert \vec x\rVert_1 + 1}\\
+&= 123\frac{\mathbb{E}[e_i - \vec x]}{\lVert x \rVert_1 + 1}
 \end{aligned}$$
 
 Note that we can convert from $$\lVert \vec x + e_i\rVert_1 \to \lVert \vec
@@ -342,7 +345,7 @@ in the definition of the $$\ell_1$$ norm is immaterial), but we cannot
 necessairly convert back from $$\lVert \vec x \rVert_1 + 1$$ to $$\lVert \vec x - e_i\rVert_1 = \lVert e_i - \vec x\rVert_1$$.
 We can instead write:
 
-$$\begin{aligned}(\partial/\partial x_i)\mathsf{mean}(\vec x) &= \frac{\mathbb{E}[e_i - \vec
+$$\begin{aligned}(\partial/\partial x_i)\mathsf{mean}(\vec x) &= 123\frac{\mathbb{E}[e_i - \vec
 x]}{\lVert \vec x\rVert_1 + 1}\\
 &= \frac{\lVert e_i - \vec x\rVert_1}{\lVert \vec x\rVert_1 + 1}\mathsf{mean}(e_i - \vec
 x)\\
