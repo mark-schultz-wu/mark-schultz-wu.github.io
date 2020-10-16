@@ -46,8 +46,8 @@ $$\ell_p$$ sensitivities, which I give below:
 > The $$\ell_p$$ sensitivity of a function $$f :
 > \mathbb{N}^{|\mathcal{X}|}\to\mathbb{R}^k$$ is:
 >
-> $$\Delta_p(f) = \max_{\substack{x, y\in\mathbb{N}^{|\mathcal{X}|}\\\lVert
-> x-y\rVert_1 = 1}} \lVert f(x) - f(y)\rVert_p$$
+> $$\Delta_p(f) = \max_{\substack{x, y\in\mathbb{N}^{|\mathcal{X}|}\\ \lVert
+x-y\rVert_1 = 1}} \lVert f(x) - f(y)\rVert_p$$
 
 Generally this is explained in a few steps.
 First, it is stated (or already known) that $$\mathbb{N}^{|\mathcal{X}|}$$ is
@@ -205,8 +205,7 @@ Quickly notice that:
 This is all to say that for $$p\in(1,\infty)$$, we have that:
 
 $$\begin{aligned}
-\{\vec x\in\mathbb{N}^{|\mathcal{X}|} \mid \lVert \vec x\rVert_p \leq 1\}\\
-&= \{0\} \cup \{\vec x\in\mathbb{N}^{|\mathcal{X}|} \mid \lVert \vec x\rVert_p = 1\}\\
+\{\vec x\in\mathbb{N}^{|\mathcal{X}|} \mid \lVert \vec x\rVert_p \leq 1\} &= \{0\} \cup \{\vec x\in\mathbb{N}^{|\mathcal{X}|} \mid \lVert \vec x\rVert_p = 1\}\\
 &= \{0\}\cup \{e_i\mid i\in[|\mathcal{X}|]\}
 \end{aligned}$$
 
