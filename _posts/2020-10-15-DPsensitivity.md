@@ -46,8 +46,7 @@ $$\ell_p$$ sensitivities, which I give below:
 > The $$\ell_p$$ sensitivity of a function $$f :
 > \mathbb{N}^{|\mathcal{X}|}\to\mathbb{R}^k$$ is:
 >
-> $$\Delta_p(f) = \max_{\substack{x, y\in\mathbb{N}^{|\mathcal{X}|}\\ \lVert
-x-y\rVert_1 = 1}} \lVert f(x) - f(y)\rVert_p$$
+> $$\Delta_p(f) = \max_{\vec{x}, \vec{y}\in\mathbb{N}^{|\mathcal{X}|} : \lVert \vec x - \vec y \rVert_1 = 1} \lVert f(\vec x) - f(\vec y)\rVert_p$$
 
 Generally this is explained in a few steps.
 First, it is stated (or already known) that $$\mathbb{N}^{|\mathcal{X}|}$$ is
