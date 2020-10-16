@@ -224,7 +224,7 @@ v\in\mathbb{N}^{|\mathcal{X}|}, \lVert v\rVert_p = 1\}\\
 To denote the operator norm of a linear map $$M :
 \mathbb{N}^{|\mathcal{X}|}\to\mathbb{R}^k$$.
 
-We could be playing *any* $$\ell_p$$ norm on the domain while doing this, and
+We could be putting *any* $$\ell_p$$ norm on the domain while doing this, and
 will end up with an equivalent definition.
 We'll next show how this leads to a quite natural interpretation of the
 $$\ell_p$$ sensitivity as the maximum of the operator norm of $$\nabla f(\vec{x})$$ over $$\vec{x}\in\mathbb{N}^{|\mathcal{X}|}$$.
