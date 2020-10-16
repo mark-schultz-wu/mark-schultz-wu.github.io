@@ -336,11 +336,10 @@ x\rVert_1 + 1)}\\
 &= \frac{\mathbb{E}[e_i - \vec x]}{\lVert x \rVert_1 + 1}
 \end{aligned}$$
 
-Note that we can convert from $$\lVert_1 \vec x + e_i\rVert_1 \to \lVert \vec
+Note that we can convert from $$\lVert \vec x + e_i\rVert_1 \to \lVert \vec
 x\rVert_1 + 1$$ as $$\vec x\in\mathbb{N}^{|\mathcal{X}|}$$ (so the absolute value
 in the definition of the $$\ell_1$$ norm is immaterial), but we cannot
-necessairly convert back from $$\lVert \vec x \rVert_1 + 1$$ to $$\lVert \vec x
-- e_i\rVert_1 = \lVert e_i - \vec x\rVert_1$$.
+necessairly convert back from $$\lVert \vec x \rVert_1 + 1$$ to $$\lVert \vec x - e_i\rVert_1 = \lVert e_i - \vec x\rVert_1$$.
 We can instead write:
 
 $$\begin{aligned}(\partial/\partial x_i)\mathsf{mean}(\vec x) &= \frac{\mathbb{E}[e_i - \vec
