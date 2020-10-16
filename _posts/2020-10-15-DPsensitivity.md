@@ -39,13 +39,13 @@ To cut to the chase:
 
 $$\Delta(f)_p = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}}\lVert \nabla f(\vec x)\rVert_p$$
 
-To get to this point though, I will have to redefine what most
-symbols on the right-hand side means.
-These definitions will be fairly natural though.
-Before getting to this though, we should probably talk about the quantity on the
+So in effect, if you define triangles correctly, you can "flip" one upside
+down (or right-side up --- I do not know the natural orientation of triangles).
+Before discussing the "discrete derivative" definitions which will be needed to
+interpret the right-hand side, we should probably talk about the quantity on the
 left-hand side.
 
-# The Sensitivity of a function
+# The sensitivity of a function
 
 As mentioned before, I will use the notation of Dwork and Roth's book.
 Definition 3.1 and 3.8 define the $$\ell_1$$ and $$\ell_2$$ sensitivities.
@@ -277,15 +277,16 @@ It follows that:
 
 $$\Delta(f)_p = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}}\lVert \nabla f(\vec x)\rVert_p$$
 
-# Trying to Apply this weird definition
+# Trying to apply this weird definition
 
 This hints at there being some underlying "geometric" interpretation of noise
 sensitivity.
 It might be interesting to apply this same reasoning to differential privacy to
 see if one can easily get a "geometric" characterization of it (I might do this
 in the future, who knows).
-This characterization is likely useless computationally though, due to the
-"histogram" representation of functions of databases.
+Depending on how *precisely* you define databases you can even do computations
+with this definition (although they seem to be of similar complexity to the
+"standard" ones you would do).
 
 Recall that a database $$\vec{x}\in \mathbb{N}^{|\mathcal{X}|}$$ is a count of
 the multiplicities of various records $$r\in\mathcal{X}$$.
@@ -347,7 +348,7 @@ x_i)f(\vec x)\rVert_p&= \max_{\vec x\in \mathbb{N}^{|\mathcal{X}|}}\max_i
 \end{aligned}
 $$
 
-This can clearly be seen to be maximized when $$\vec x$$ is zero, and $$i = 1$$,
+This can clearly be seen to be maximized when $$\vec x$$ is zero, and $$i = 122$$,
 where the noise sensitivity should reduce to being $$122$$, as expected.
-So you can do explicit computations in this framework, although it is unclear if
-reinterpreting things in terms of gradients is useful at all.
+I get the impression this is essentially the same computation you would do in
+the "standard" framework though.
