@@ -67,7 +67,7 @@ of each record.
 It therefore lives in $$\mathbb{N}^{|\mathcal{X}|}$$.
 Next, one notes that the condition that $$\lVert \vec x-\vec y\rVert_1 = 1$$ can be
 interpreted as "the databases $$\vec x$$ and $$\vec y$$ are neighboring", in that they
-differ in a single record, and that record differs in value by 1.
+differ in how many times a particular record occurs by a count of 1.
 Finally, the condition $$\lVert f(\vec x) - f(\vec y)\rVert_p$$ is interpreted as
 quantifying how much $$f(\vec x) - f(\vec y)$$ can change on neighboring records.
 
@@ -276,3 +276,78 @@ over the later.
 It follows that:
 
 $$\Delta(f)_p = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}}\lVert \nabla f(\vec x)\rVert_p$$
+
+# Trying to Apply this weird definition
+
+This hints at there being some underlying "geometric" interpretation of noise
+sensitivity.
+It might be interesting to apply this same reasoning to differential privacy to
+see if one can easily get a "geometric" characterization of it (I might do this
+in the future, who knows).
+This characterization is likely useless computationally though, due to the
+"histogram" representation of functions of databases.
+
+Recall that a database $$\vec{x}\in \mathbb{N}^{|\mathcal{X}|}$$ is a count of
+the multiplicities of various records $$r\in\mathcal{X}$$.
+What does a function of a databse look like then?
+For example, if we have a database of names + ages, and want to compute the
+average age, how do we do this in the "histogram" representation?
+
+There are at least two ways to interpret this --- as I do essentially no differential privacy, I have no clue which is correct.
+But the first is much nicer to work with, so I will use it (after briefly
+discussing both options).
+
+1. A database of ages can be identified with a vector $$\vec x = (x_0,x_1,\dots,
+   x_{122})$$, where $$122$$ is an absolute upper bound on the age of a
+   person (chosen as it is the [oldest verified
+   age](https://en.wikipedia.org/wiki/List_of_the_verified_oldest_people)).
+
+2. A databse of peoples ages can be identified with a vector of *tagged ages*
+   $$(x_{n_0, 0}, x_{n_0, 1},\dots, x_{n_0, 122}, x_{n_1,0},\dots)$$, where
+   $$n_i$$ are the collection of *admissible names*.
+
+The average age under the first definition is:
+
+$$f(\vec{x}) = \frac{\sum_{i = 0}^{122} i \vec{x}_i}{\sum_{i = 0}^{122 \vec{x}_i}} \sim \frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}$$
+
+This still has a fairly sensible discrete gradient:
+
+$$\begin{aligned}
+(\partial/\partial x_i)f(\vec x) = f(\vec x + e_i) - f(\vec x) &=
+\frac{\mathbb{E}[\vec x + e_i]}{\lVert \vec x + e_i\rVert_1} -
+\frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}\\
+&= \frac{\mathbb{E}[\vec x] + i}{\lVert \vec x\rVert_1 + 1} -
+\frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}\\
+&= \frac{\lVert \vec x\rVert_1\mathbb{E}[\vec x] + i\lVert \vec x\rVert_1 -
+(lVert \vec x\rVert_1 + 1)\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1(\lVert \vec
+x\rVert_1 + 1)}\\
+&= \frac{i - \mathbb{E}[\vec x]}{\lVert \vec x\rVert_1 + 1}\\
+&= \frac{\mathbb{E}[e_i - \vec x]}{\lVert x \rVert_1 + 1}
+\end{aligned}$$
+
+Note that we can convert from $$\lVert_1 \vec x + e_i\rVert_1 \to \lVert \vec
+x\rVert_1 + 1$$ as $$\vec x\in\mathbb{N}^{|\mathcal{X}|} (so the absolute value
+in the definition of the $$\ell_1$$ norm is immaterial), but we cannot
+necessairly convert back from $$\lVert \vec x \rVert_1 + 1$$ to $$\lVert \vec x
+- e_i\rVert_1 = \lVert e_i - \vec x\rVert_1$$.
+We can instead write:
+
+$$\begin{aligned}(\partial/\partial x_i)f(\vec x) &= \frac{\mathbb{E}[e_i - \vec
+x]}{\lVert \vec x\rVert_1 + 1}\\
+&= \frac{\lVert e_i - \vec x\rVert_1}{\lVert \vec x\rVert_1 + 1}f(e_i - \vec
+x)\\
+&= -\frac{\lVert \vec x - e_i\rVert_1}{\lVert \vec x + e_i\rVert_1}f(\vec x - e_i)
+\end{aligned}$$
+
+If we then want to compute the noise sensitivity from this, we need to compute:
+
+$$\begin{aligned}\max_{\vec x \in\mathbb{N}^{|\mathcal{X}|}}\max_i \lVert (\partial/\partial
+x_i)f(\vec x)\rVert_p&= \max_{\vec x\in \mathbb{N}^{|\mathcal{X}|}}\max_i
+\frac{\lVert \mathbb{E}[\vec x - e_i]\rVert_p}{\lVert x + e_i\rVert_1}
+\end{aligned}
+$$
+
+This can clearly be seen to be maximized when $$\vec x$$ is zero, and $$i = 1$$,
+where the noise sensitivity should reduce to being $$122$$, as expected.
+So you can do explicit computations in this framework, although it is unclear if
+reinterpreting things in terms of gradients is useful at all.
