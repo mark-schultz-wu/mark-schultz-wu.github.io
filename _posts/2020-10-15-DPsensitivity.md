@@ -154,8 +154,6 @@ When applied to the discrete derivative, one gets that:
  \end{aligned}$$
 
 I'll quickly mention that (something close to this) [seems like it is used *some places*](https://en.wikipedia.org/wiki/Finite_difference#Multivariate_finite_differences).
-The interpretation of the partial derivative as the "standard derivative" 
-
 For further motivation for why this
 may be a sensible "discrete partial derivative", I'll point to a conceptually close definition of "$$\mathbb{F}_2$$-partial derivatives", which take a similar form (such as in [this
 paper](http://web.cs.ucla.edu/~sherstov/pdf/directional.pdf), near theorem 1.5).
