@@ -129,7 +129,7 @@ i}'(\vec x_i) = (\partial/\partial x_i)f(\vec x)$$.
 When applied to the discrete derivative, one gets that:
 
 > Let $$f : \mathbb{N}^n\to \mathbb{R}$$.
-> For any $$\vec{x}\in\mathbb{N}^n$$ and $$i\in[n]$$, let $$F_{\vec{x}, i}(y) = f(\vec x - \vec{x}_i + e_i + te_i)$$
+> For any $$\vec{x}\in\mathbb{N}^n$$ and $$i\in[n]$$, let $$F_{\vec{x}, i}(y) = f(\vec x - \vec{x}_ie_i + te_i)$$
 > The *discrete partial derivative* of $$f$$ with respect to the variable
 > $$x_i$$ is defined as:
 >
