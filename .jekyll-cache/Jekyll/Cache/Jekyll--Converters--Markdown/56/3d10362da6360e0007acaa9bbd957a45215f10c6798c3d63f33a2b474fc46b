@@ -1,12 +1,0 @@
-I"<p>Differential Privacy is a quite interesting field, which has seen wide interest
-(both in academia and real-life) in recent years.
-But what <em>is</em> differential privacy?
-As I don’t work in this area, I’m rather ill-suited for saying anything — but
-at least why does it have that name?
-Frank McSherry (who, among others, won the <a href="https://en.wikipedia.org/wiki/G%C3%B6del_Prize">Godel
-Prize</a> for creating the area)
-<a href="https://crypto.stackexchange.com/questions/77324/what-does-the-term-differential-in-differential-privacy-mean">states that it was one of several names
-considered</a>, including others like “Marginal Privacy” or “Incremental Privacy”.
-He further states that he thinks the name “stuck” due to an analogy with
-differential cryptanalysis.</p>
-:ET
