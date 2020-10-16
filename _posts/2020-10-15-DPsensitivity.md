@@ -39,13 +39,13 @@ To cut to the chase:
 
 $$\Delta(f)_p = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}}\lVert \nabla f(\vec x)\rVert_p$$
 
-To get to tihs point though, I will have to redefine what essentially every
-symbol on the right-hand side means.
-Fortunately, these definitions seem "natural" (in particular, the choices are
-clearly not made to make the above a tautology) to adapt them to the "discrete"
-setting, as I will show later.
+To get to this point though, I will have to redefine what most
+symbols on the right-hand side means.
+These definitions will be fairly natural though.
+Before getting to this though, we should probably talk about the quantity on the
+left-hand side.
 
-# The Sensitivity as a Derivative Bound
+# The Sensitivity of a function
 
 As mentioned before, I will use the notation of Dwork and Roth's book.
 Definition 3.1 and 3.8 define the $$\ell_1$$ and $$\ell_2$$ sensitivities.
