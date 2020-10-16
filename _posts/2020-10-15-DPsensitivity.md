@@ -364,21 +364,34 @@ the "standard" framework though.
 
 # Potential Extensions
 
-The only real benefit I can view of this is that one can often define a
-"calculus" of differential operators quite easily, so phrasing the sensitivity
-in terms of derivatives may make it easier to provide "automatic sensitivity
-analysis" (essentially, by analogy with how computer algebra systems can quite
-easily compute the derivatives of a wide variety of functions).
-I haven't thought about this problem at all though (and it quite likely is a
-problem *other* people have thought about), so I'll leave off the blog-post here
-with the potential extensions of this to:
+There are a couple of cool ideas this viewpoint raises.
+The most basic are *can you repeat this with other notions of sensitivity*?
+The "most ambitious" hope of this would to provide some unified "geometric"
+framework for sensitivity in differentiaal privacy.
 
-1. A "calculus of sensitivity analysis", with the goal of building some tool to
-   automate sensitivity analysis
-2. Extending it to concepts such as local sensitivity (which I have never really
-   looked into --- I just know that it is another concept called sensitivity, so
-   may fit into a similar framework)
-3. Looking for some "geometric" characterization of differential privacy by
-   "working backwards" from this definition of local sensitivity, and the
-   $$(\epsilon, \delta)$$-differentially private mechanisms in the $$\ell_p$$
-   norm.
+Another kind of cool idea would be to connect this geometric intuition
+*directly* to differential privacy via things like the Laplace and Gaussian
+mechanism.
+Essentially, if one defines differential privacy to be "the thing which the
+Laplace and Gaussian mechanisms satisfy", can we get a definition of
+differential privacy in terms of solely the derivatives of $$f$$?
+This definition would likely only be *sufficient* for differential privacy (and
+not equivalent to it), but it could still be interesting to think about.
+
+Finally, one notable advantage framing things in terms of derivatives gives is
+the possibility to build a *calculus*.
+Here, by *calculus* I mean a system by which people calculate things.
+Differential calculus has been extremely successful for analyzing arbitrary
+functions as the derivative (tends to) behave extremely well with respect to
+sums, products, and compositions of functions.
+Could this be leveraged to give a "calculus" for sensitivity analysis?
+In terms of actual applications this idea has the most potential --- one can
+likely use the differential calculus I suspect exists to rewrite:
+
+$$\Delta(f)_p = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}} \lVert G(\vec x)\rVert_p$$
+
+Where I imagine $$G(\vec x)$$ is some "polynomial expression" of matrices.
+The operator norm is both sub-additive and sub-multiplicative, so one can
+leverage this to get *some* bound on the sensitivity of a function which is
+built up of smaller "base" functions, but I have no clue how loose the bound is
+(and suspect it may quickly become too loose to be useful, but who knows).
