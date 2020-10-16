@@ -324,8 +324,8 @@ $$\mathsf{mean}(\vec{x}) = \frac{\sum_{i = 0}^{122} i \vec{x}_i}{\sum_{i = 0}^{1
 This still has a fairly sensible discrete gradient:
 
 $$\begin{aligned}
-(\partial/\partial x_i)f(\vec x) = \mathsf{mean}(\vec x + e_i) - \mathsf{mean}(\vec x) &=
-\frac{\mathbb{E}[\vec x + e_i]}{\lVert \vec x + e_i\rVert_1} -
+(\partial/\partial x_i)f(\vec x) &= \mathsf{mean}(\vec x + e_i) - \mathsf{mean}(\vec x) \\
+&=\frac{\mathbb{E}[\vec x + e_i]}{\lVert \vec x + e_i\rVert_1} -
 \frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}\\
 &= \frac{\mathbb{E}[\vec x] + i}{\lVert \vec x\rVert_1 + 1} -
 \frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}\\
