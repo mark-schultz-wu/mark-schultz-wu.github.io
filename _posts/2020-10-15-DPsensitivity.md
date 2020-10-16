@@ -303,18 +303,28 @@ discussing both options).
    person (chosen as it is the [oldest verified
    age](https://en.wikipedia.org/wiki/List_of_the_verified_oldest_people)).
 
-2. A databse of peoples ages can be identified with a vector of *tagged ages*
+2. A database of peoples ages can be identified with a vector of *tagged ages*
    $$(x_{n_0, 0}, x_{n_0, 1},\dots, x_{n_0, 122}, x_{n_1,0},\dots)$$, where
    $$n_i$$ are the collection of *admissible names*.
 
+While the second definition defines the database itself better (and is a *much*
+more useful definition if we want to query the average number of vowels in each
+persons name, or something else), the first leads to significantly "smaller"
+databases generically.
+Maybe viewing databases as multi-sets instead of vectors is what makes the
+second the more appropriate definition --- I don't know.
+All I know is I want to compute the sensitivity of the average age of someone,
+and the first definition is easier to work with, so I will look at it for this
+example.
+
 The average age under the first definition is:
 
-$$f(\vec{x}) = \frac{\sum_{i = 0}^{122} i \vec{x}_i}{\sum_{i = 0}^{122 \vec{x}_i}} \sim \frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}$$
+$$\mathsf{mean}(\vec{x}) = \frac{\sum_{i = 0}^{122} i \vec{x}_i}{\sum_{i = 0}^{122 \vec{x}_i}} \sim \frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}$$
 
 This still has a fairly sensible discrete gradient:
 
 $$\begin{aligned}
-(\partial/\partial x_i)f(\vec x) = f(\vec x + e_i) - f(\vec x) &=
+(\partial/\partial x_i)f(\vec x) = \mathsf{mean}(\vec x + e_i) - \mathsf{mean}(\vec x) &=
 \frac{\mathbb{E}[\vec x + e_i]}{\lVert \vec x + e_i\rVert_1} -
 \frac{\mathbb{E}[\vec x]}{\lVert \vec x\rVert_1}\\
 &= \frac{\mathbb{E}[\vec x] + i}{\lVert \vec x\rVert_1 + 1} -
@@ -333,9 +343,9 @@ necessairly convert back from $$\lVert \vec x \rVert_1 + 1$$ to $$\lVert \vec x
 - e_i\rVert_1 = \lVert e_i - \vec x\rVert_1$$.
 We can instead write:
 
-$$\begin{aligned}(\partial/\partial x_i)f(\vec x) &= \frac{\mathbb{E}[e_i - \vec
+$$\begin{aligned}(\partial/\partial x_i)\mathsf{mean}(\vec x) &= \frac{\mathbb{E}[e_i - \vec
 x]}{\lVert \vec x\rVert_1 + 1}\\
-&= \frac{\lVert e_i - \vec x\rVert_1}{\lVert \vec x\rVert_1 + 1}f(e_i - \vec
+&= \frac{\lVert e_i - \vec x\rVert_1}{\lVert \vec x\rVert_1 + 1}\mathsf{mean}(e_i - \vec
 x)\\
 &= -\frac{\lVert \vec x - e_i\rVert_1}{\lVert \vec x + e_i\rVert_1}f(\vec x - e_i)
 \end{aligned}$$
@@ -352,3 +362,21 @@ This can clearly be seen to be maximized when $$\vec x$$ is zero, and $$i = 122$
 where the noise sensitivity should reduce to being $$122$$, as expected.
 I get the impression this is essentially the same computation you would do in
 the "standard" framework though.
+
+The only real benefit I can view of this is that one can often define a
+"calculus" of differential operators quite easily, so phrasing the sensitivity
+in terms of derivatives may make it easier to provide "automatic sensitivity
+analysis" (essentially, by analogy with how computer algebra systems can quite
+easily compute the derivatives of a wide variety of functions).
+I haven't thought about this problem at all though (and it quite likely is a
+problem *other* people have thought about), so I'll leave off the blog-post here
+with the potential extensions of this to:
+
+1. A "calculus of sensitivity analysis", with the goal of building some tool to
+   automate sensitivity analysis
+2. Extending it to concepts such as local sensitivity (which I have never really
+   looked into)
+3. Looking for some "geometric" characterization of differential privacy by
+   "working backwards" from this definition of local sensitivity, and the
+   $$(\epsilon, \delta)$$-differentially private mechanisms in the $$\ell_p$$
+   norm.
