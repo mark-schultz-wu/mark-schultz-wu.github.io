@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Global Sensitivity as the Operator Norm of a Derivative
+title: Sensitivity as the Operator Norm of a Derivative
 tags: differential-privacy weird-construction
 comments: true
 ---
@@ -39,7 +39,15 @@ differential privacy can be interpreted in terms of a deceptively simple
 equation.
 To cut to the chase:
 
-$$\Delta(f)_p = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}}\lVert \nabla f(\vec x)\rVert_p$$
+$$\Delta_{\vec x, p}(f) = \lVert \nabla f(\vec x)\rVert_p$$
+
+Where $$\Delta_{\vec x, p}(f)$$ is the $$\ell_p$$ local sensitivity of $$f$$ at
+$$\vec x$$.
+This immediately implies the following for the global sensitivity
+$$\Delta_p(f)$$:
+
+$$\Delta_p(f) = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}} \lVert \nabla f(\vec
+x)\rVert_p$$
 
 So in effect, if you define triangles correctly, you can "flip" one upside
 down (or right-side up --- I do not know the natural orientation of triangles).
@@ -54,10 +62,26 @@ Definition 3.1 and 3.8 define the (global) $$\ell_1$$ and $$\ell_2$$ sensitiviti
 Upon reading both of them, there is a straightforward generalization to
 $$\ell_p$$ sensitivities, which I give below:
 
-> The $$\ell_p$$ sensitivity of a function $$f :
+> The global $$\ell_p$$ sensitivity of a function $$f :
 > \mathbb{N}^{|\mathcal{X}|}\to\mathbb{R}^k$$ is:
 >
 > $$\Delta_p(f) = \max_{\vec{x}, \vec{y}\in\mathbb{N}^{|\mathcal{X}|} : \lVert \vec x - \vec y \rVert_1 = 1} \lVert f(\vec x) - f(\vec y)\rVert_p$$
+
+One can also speak of the "local" sensitivity of a function *at* at point
+$$\vec{x}\in\mathbb{N}^{|\mathcal{X}|}$$.
+This can be viewed as the global sensitivity where
+$$\vec{x}\in\mathbb{N}^{|\mathcal{X}|}$$ is *fixed*.
+An $$\ell_1$$ version of this is mentioned in definition 7.1.
+As no notation is given, I will write $$\Delta_{p, \vec x}(f)$$.
+
+> The local $$\ell_p$$ sensitivity of a function $$f : \mathbb{N}^{|\mathcal{X}|}\to\mathbb{R}^k$ is:
+> 
+> $$\Delta_{p, \vec x}(f) = \max_{\vec y\in\mathbb{N}^{|\mathcal{X}|} : \lVert
+> \vec x - \vec y\rVert_1 = 1} \lVert f(\vec x) - f(\vec y)\rVert_p$$
+
+One can easily see that $$\Delta_p(f) = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}}\Delta_{p, \vec x}(f)$$.
+As the global sensitivity is more common, I'll quickly describe the motivation
+for it.
 
 Generally this is explained in a few steps.
 First, it is stated (or already known) that $$\mathbb{N}^{|\mathcal{X}|}$$ is
@@ -72,6 +96,9 @@ interpreted as "the databases $$\vec x$$ and $$\vec y$$ are neighboring", in tha
 differ in how many times a particular record occurs by a count of 1.
 Finally, the condition $$\lVert f(\vec x) - f(\vec y)\rVert_p$$ is interpreted as
 quantifying how much $$f(\vec x) - f(\vec y)$$ can change on neighboring records.
+The local sensitivity still bounds how much $$f$$ can change on neighboring
+records, but it *in particular* bounds how much $$f$$ can change on records
+which neighbor $$\vec x$$.
 
 Given language like "The $$\ell_p$$ sensitivity quantifies how much a function
 $$f$$ can change on adjacent points", it seems entirely unsurprising that you
@@ -174,11 +201,13 @@ I will then define the "discrete gradiant" in the same way below:
 $$\nabla f(x) = ((\partial/\partial x_1)f(x), \dots, (\partial/\partial x_n)f(x))$$
 
 Before proceeding, we need to note that (when the codomain of $$f$$ is dimension
-$$>1$$) that $$\nabla f(x)$$ is most naturally a *matrix*, whose $$i$$th column
+    $$>1$$) that $$\nabla f(x)$$ is most naturally a *matrix* (called the [*Jacobian* matrix](https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant)), whose $$i$$th column
 is $$(\partial/\partial x_i)f(x)$$.
-We will define the norm of a matrix to be its [*operator
+I will still notate this $$\nabla f$$
+I will define the norm of a matrix to be its [*operator
 norm*](https://en.wikipedia.org/wiki/Operator_norm).
 The general definition of this is included below:
+
 
 > Let $$M : V\to W$$ be a linear operator, and let $$\lVert\cdot\rVert_V$$,
 > $$\lVert\cdot\rVert_W$$ be norms on $$V$$ and $$W$$ respectively.
@@ -243,13 +272,15 @@ will end up with an equivalent definition.
 We'll next show how this leads to a quite natural interpretation of the
 $$\ell_p$$ sensitivity as the maximum of the operator norm of $$\nabla f(\vec{x})$$ over $$\vec{x}\in\mathbb{N}^{|\mathcal{X}|}$$.
 
-# The $$\ell_p$$ sensitivity as a norm bound on the discrete gradient
+# The $$\ell_p$$ sensitivity as a norm bound on the Jacobian matrix
 
 Let $$f : \mathbb{N}^{|\mathcal{X}|} \to \mathbb{R}^k$$.
 We will next show the following:
 
-> $$\Delta(f)_p = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}}\lVert \nabla f(\vec x)\rVert_p$$
+> $$\Delta_{\vec x, p}(f) = \lVert \nabla f(\vec x)\rVert_p$$
 
+By taking maxes over $$\vec x$$, this also implies our expression for the global
+sensitivity.
 The proof is rather straightforward.
 By the characteriation of norm-1 elements of $$\mathbb{N}^{|\mathcal{X}|}$$, we
 have that the operator norm will be:
@@ -261,34 +292,35 @@ Note that $$[\nabla f(\vec x)] e_i$$ is the $$i$$th column of $$\nabla f(\vec x)
 It follows that:
 
 $$\begin{aligned}
-\max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}}\lVert \nabla f(\vec x)\rVert_p &= \max_{\vec{x}\in\mathbb{N}^{|\mathcal{X}|}}\max_{i}\lVert (\partial/\partial x_i)f(\vec x)\rVert_p
-&= \max_{\vec x\in \mathbb{N}^{|\mathcal{X}|}} \max_i \lVert f(\vec x + e_i) - f(\vec
+\lVert \nabla f(\vec x)\rVert_p &= \max_{i}\lVert (\partial/\partial x_i)f(\vec x)\rVert_p
+&= \max_i \lVert f(\vec x + e_i) - f(\vec
 x)\rVert_p
 \end{aligned}$$
 
 This is *nearly* the $$\ell_p$$ sensitivity, except we are maximizing over the
-choice of $$\vec x$$ and $$\vec x + e_i$$, rather than $$\vec x$$ and $$\vec y$$
+choice of $$\vec x + e_i$$, rather than $$\vec y$$
 such that $$\lVert \vec x - \vec y\rVert_1 = 1$$.
 But these can readily be seen to be equivalent --- as norm 1 elements in
 $$\mathbb{N}^{|\mathcal{X}|}$$ are precisely standard basis vectors, we have
 that $$\vec x, \vec y$$ that are adjacent are of the form $$\vec x = \vec y \pm
-e_i$$ for some $$i$$, so maximizing over the former is equivalent to maximizing
-over the later.
+e_i$$ for some $$i$$.
 
 It follows that:
 
-$$\Delta(f)_p = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}}\lVert \nabla f(\vec x)\rVert_p$$
+$$\Delta_{\vec x, p}(f) = \lVert \nabla f(\vec x)\rVert_p$$
+
+and:
+
+$$\Delta_{p}(f) = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}} \Delta_{\vec x,
+p}(f) = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}} \lVert \nabla f(\vec
+x)\rVert_p$$
 
 # An explicit calculation in this framework
 
-This hints at there being some underlying "geometric" interpretation of noise
-sensitivity.
-It might be interesting to apply this same reasoning to differential privacy to
-see if one can easily get a "geometric" characterization of it (I might do this
-in the future, who knows).
-Depending on how *precisely* you define databases you can even do computations
-with this definition (although they seem to be of similar complexity to the
-"standard" ones you would do).
+To flesh this out a little more, I'll next do a sensitivity calculation in the
+above language.
+I imagine this will look essentially like a sensitivity calculation in the
+"standard" setting.
 
 Recall that a database $$\vec{x}\in \mathbb{N}^{|\mathcal{X}|}$$ is a count of
 the multiplicities of various records $$r\in\mathcal{X}$$.
@@ -369,42 +401,32 @@ the mean is $$1$$, and thus the sensitivity is 123, as expected.
 I get the impression this is essentially the same computation you would do in
 the "standard" framework though.
 
-# Potential extensions
+# Potential extension
 
-There are a couple of cool ideas this viewpoint raises.
-The most basic are *can you repeat this with other notions of sensitivity*?
-The "most ambitious" hope of this would to provide some unified "geometric"
-framework for sensitivity in differential privacy.
-The generalization to local sensitivity seems straightforward (rather than
-maximizing over $$\vec x$$, the smooth sensitivity at $$\vec x$$ seems to just
-be $$\lVert \nabla f(\vec x)\rVert_p$$).
-There are other sensitivities defined (such as smooth sensitivity), which I do
-not know much about.
+One application of this representation is to the development of a *sensitivity calculus*.
+Here, "calculus" means a framework for calculating things.
+One reason differential calculus has been so successful is that derivatives
+give a (mechanically) simple way to do computations with complex functions.
+In particular, as derivatives behave well with respect to:
 
-Another kind of cool idea would be to connect this geometric intuition
-*directly* to differential privacy via things like the Laplace and Gaussian
-mechanism.
-Essentially, if one defines differential privacy to be "the thing which the
-Laplace and Gaussian mechanisms satisfy", can we get a definition of
-differential privacy in terms of solely the derivatives of $$f$$?
-This definition would likely only be *sufficient* for differential privacy (and
-not equivalent to it), but it could still be interesting to think about.
+1. Sums
+2. Products
+3. Quotients
+4. Composition
 
-Finally, one notable advantage framing things in terms of derivatives gives is
-the possibility to build a *calculus*.
-Here, by *calculus* I mean a system by which people calculate things.
-Differential calculus has been extremely successful for analyzing arbitrary
-functions as the derivative (tends to) behave extremely well with respect to
-sums, products, and compositions of functions.
-Could this be leveraged to give a "calculus" for sensitivity analysis?
-In terms of actual applications this idea has the most potential --- one can
-likely use the differential calculus I suspect exists to rewrite:
+One can usually compute the derivative of an arbitrary function in terms of the
+above "rules", along with the knowledge of some "simple" derivatives.
+By framing sensitivity in terms of derivatives, there is a hope that one could
+derive such a set of rules for *discrete derivatives*.
+This could "automate" the computation of $$\nabla f$$ in sensitivity analysis,
+by giving a way to write $$\nabla f$$ as an expression in (known) "simple"
+derivatives.
 
-$$\Delta(f)_p = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}} \lVert G(\vec x)\rVert_p$$
-
-Where I imagine $$G(\vec x)$$ is some "polynomial expression" of matrices which
-correspond to discrete gradients of "simple functions".
-The operator norm is both sub-additive and sub-multiplicative, so one can
-leverage this to get *some* upper bound on the sensitivity of a function which is
-built up of smaller "base" functions, but I have no clue how loose the bound is
-(and suspect it may quickly become too loose to be useful, but who knows).
+Of course, sensitivity analysis still requires computing the operator norm of
+this expression.
+The operator norm is sub-additive and sub-multiplicative, which one can leverage
+to get an *upper bound* on the sensitivity in terms of the sensitivities of the
+aforementioned "simple" derivatives.
+This upper bound is potentially loose though, which would hurt the applicability
+of this method.
+If the upper bound is tolerable, this should be relatively easy to program.
