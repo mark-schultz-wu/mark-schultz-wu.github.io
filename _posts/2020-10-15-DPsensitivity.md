@@ -395,7 +395,8 @@ likely use the differential calculus I suspect exists to rewrite:
 
 $$\Delta(f)_p = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}} \lVert G(\vec x)\rVert_p$$
 
-Where I imagine $$G(\vec x)$$ is some "polynomial expression" of matrices.
+Where I imagine $$G(\vec x)$$ is some "polynomial expression" of matrices which
+correspond to discrete gradients of "simple functions".
 The operator norm is both sub-additive and sub-multiplicative, so one can
 leverage this to get *some* bound on the sensitivity of a function which is
 built up of smaller "base" functions, but I have no clue how loose the bound is
