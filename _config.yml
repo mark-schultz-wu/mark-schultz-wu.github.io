@@ -84,6 +84,8 @@ plug-ins:
 
 # Exclude these files from your production _site
 exclude:
+  - tmp/
+  - vendor/
   - Gemfile
   - Gemfile.lock
   - LICENSE
