@@ -248,7 +248,7 @@ It follows that:
 
 $$\begin{aligned}
 \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}}\lVert \nabla f(\vec x)\rVert_p &= \max_{\vec{x}\in\mathbb{N}^{|\mathcal{X}|}}\max_{i}\lVert (\partial/\partial x_i)f(\vec x)\rVert_p
-&= \max_{\mathbb{N}^{|\mathcal{X}|}} \max_i \lVert f(\vec x + e_i) - f(\vec
+&= \max_{\vec x\in \mathbb{N}^{|\mathcal{X}|}} \max_i \lVert f(\vec x + e_i) - f(\vec
 x)\rVert_p
 \end{aligned}$$
 
