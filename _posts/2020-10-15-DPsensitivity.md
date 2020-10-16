@@ -1,6 +1,8 @@
 ---
 layout: post
-title: The Sensitivity in Differential Privacy as a Derivative Bound
+title: Local Sensitivity as the Operator Norm of a Derivative
+tags: differential-privacy weird-construction
+comments: true
 ---
 
 Differential Privacy is an area which has seen wide interest
@@ -76,7 +78,7 @@ $$f$$ can change on adjacent points", it seems entirely unsurprising that you
 can characterize it in terms of a derivative-like concept.
 But what *is* a derivative for a function with the domain $$\mathbb{N}^{|\mathcal{X}|}$$?
 
-## Discrete Derivatives
+## Discrete derivatives
 
 Throughout this section, I will define "discrete" analogus of the:
 
@@ -277,7 +279,7 @@ It follows that:
 
 $$\Delta(f)_p = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}}\lVert \nabla f(\vec x)\rVert_p$$
 
-# Trying to apply this weird definition
+# An explicit calculation in this framework
 
 This hints at there being some underlying "geometric" interpretation of noise
 sensitivity.
@@ -367,7 +369,7 @@ the mean is $$1$$, and thus the sensitivity is 123, as expected.
 I get the impression this is essentially the same computation you would do in
 the "standard" framework though.
 
-# Potential Extensions
+# Potential extensions
 
 There are a couple of cool ideas this viewpoint raises.
 The most basic are *can you repeat this with other notions of sensitivity*?
