@@ -6,10 +6,10 @@ title: The Sensitivity in Differential Privacy as a Derivative Bound
 Differential Privacy is an area which has seen wide interest
 (both in academia and real-life) in recent years.
 But what *is* differential privacy?
-As I don't work in this area, I'm rather ill-suited for saying anything --- but
+As I don't work in this area, I'm rather ill-suited to say anything --- but
 at least why does it have that name?
-Frank McSherry (who, among others, won the [Godel
-Prize](https://en.wikipedia.org/wiki/G%C3%B6del_Prize) for creating the area)
+Frank McSherry (one of the founders of the area, who shares the [Godel
+Prize](https://en.wikipedia.org/wiki/G%C3%B6del_Prize) as a result)
 [states that it was one of several names
 considered](https://crypto.stackexchange.com/questions/77324/what-does-the-term-differential-in-differential-privacy-mean), including others like "Marginal Privacy" or "Incremental Privacy".
 He further states that he thinks the name "stuck" due to an analogy with
@@ -24,7 +24,7 @@ journey that it seemed like it should be shared with others.
 # What is Differential Privacy?
 
 To avoid this post dragging on too long, I'm going to answer "I'm not telling".
-I'm going to do this *regardless if I really know*, so my response is actually
+My plan is to do this *regardless if I really know*, so this response is actually
 differentially private (ha).
 
 For people who actually want to know, there are a variety of excellent technical
@@ -33,10 +33,17 @@ In particular [The Algorithmic Foundations of Differential
 Privacy](https://privacytools.seas.harvard.edu/files/privacytools/files/the_algorithmic_foundations_of_differential_privacy_0.pdf) by Dwork and Roth is great.
 I'll defer to them for an introduction, and even adopt their notation.
 Really, the entirety of this post is pointing out that a common parameter within
-differential privacy can be interpreted in terms of a familar looking equation,
-if you simply redefine what all of the symbols in this equation mean.
-Of course, this is still interesting because these definitions are "natural" in
-a certain sense, as you will see below.
+differential privacy can be interpreted in terms of a deceptively simple
+equation.
+To cut to the chase:
+
+$$\Delta(f)_p = \max_{\vec x\in\mathbb{N}^{|\mathcal{X}|}}\lVert \nabla f(\vec x)\rVert_p$$
+
+To get to tihs point though, I will have to redefine what essentially every
+symbol on the right-hand side means.
+Fortunately, these definitions seem "natural" (in particular, the choices are
+clearly not made to make the above a tautology) to adapt them to the "discrete"
+setting, as I will show later.
 
 # The Sensitivity as a Derivative Bound
 
