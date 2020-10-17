@@ -41,7 +41,7 @@ To cut to the chase:
 
 $$\Delta_{\vec x, p}(f) = \lVert \nabla f(\vec x)\rVert_p$$
 
-Where $$\Delta_{\vec x, p}(f)$$ is the $$\ell_p$$ local sensitivity of $$f$$ at
+Where $$\Delta_{\vec x, p}(f)$$ is the local $$\ell_p$$ sensitivity of $$f$$ at
 $$\vec x$$.
 This immediately implies the following for the global sensitivity
 $$\Delta_p(f)$$:
@@ -74,7 +74,8 @@ $$\vec{x}\in\mathbb{N}^{|\mathcal{X}|}$$ is *fixed*.
 An $$\ell_1$$ version of this is mentioned in definition 7.1.
 As no notation is given, I will write $$\Delta_{p, \vec x}(f)$$.
 
-> The local $$\ell_p$$ sensitivity of a function $$f : \mathbb{N}^{|\mathcal{X}|}\to\mathbb{R}^k$ is:
+> The local $$\ell_p$$ sensitivity of a function
+> $$f : \mathbb{N}^{|\mathcal{X}|} \to \mathbb{R}^k$$ is:
 > 
 > $$\Delta_{p, \vec x}(f) = \max_{\vec y\in\mathbb{N}^{|\mathcal{X}|} : \lVert
 > \vec x - \vec y\rVert_1 = 1} \lVert f(\vec x) - f(\vec y)\rVert_p$$
@@ -201,7 +202,7 @@ I will then define the "discrete gradiant" in the same way below:
 $$\nabla f(x) = ((\partial/\partial x_1)f(x), \dots, (\partial/\partial x_n)f(x))$$
 
 Before proceeding, we need to note that (when the codomain of $$f$$ is dimension
-    $$>1$$) that $$\nabla f(x)$$ is most naturally a *matrix* (called the [*Jacobian* matrix](https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant)), whose $$i$$th column
+    $$>1$$) $$\nabla f(x)$$ is most naturally a *matrix* (called the [*Jacobian* matrix](https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant)), whose $$i$$th column
 is $$(\partial/\partial x_i)f(x)$$.
 I will still notate this $$\nabla f$$
 I will define the norm of a matrix to be its [*operator
