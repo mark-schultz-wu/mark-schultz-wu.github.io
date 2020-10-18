@@ -1,0 +1,9 @@
+I"�<p>Lattice-based cryptography has a variety of <em>slightly</em> different encryption
+schemes.
+In this post I’ll discuss two common ones (the initial <a href="https://cims.nyu.edu/~regev/papers/qcrypto.pdf">“scaling” scheme due to Regev</a>, and a
+scheme which uses the <a href="https://eprint.iacr.org/2011/501">Micciancio-Piekert “gadget” matrix</a>), and show how they
+can be formally connected via the Discrete Fourier transform.
+Moreover, I’ll discuss how a key property of the “gadget” matrix (that it has
+unusually “short” preimages),
+can be interpreted as a consequence of (a generalized form of) the Heisenberg uncertainty principle.</p>
+:ET

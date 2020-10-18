@@ -1,0 +1,12 @@
+I"<p>The following is a quick “primer” on lattices, mostly as supplementary material
+for my first post, although it’s quite possible I will
+link to this in future posts as well.
+Realistically, there are <em>many</em> better introductions to lattices than this post
+(although they are longer — probably for good reason!).
+For this reason I’ll include links to <a href="http://cseweb.ucsd.edu/classes/fa17/cse206A-a/">Daniele Micciancio’s Lattice Algorithms course
+syllabus</a>, as well as <a href="https://web.eecs.umich.edu/~cpeikert/pubs/lattice-survey.pdf">Chris
+Piekert’s <em>A Decade of Lattice
+Cryptography</em></a>.
+There are <em>many</em> other resources than just these, but collecting the other
+resources would probably be deserve an <em>entirely separate</em> post.</p>
+:ET

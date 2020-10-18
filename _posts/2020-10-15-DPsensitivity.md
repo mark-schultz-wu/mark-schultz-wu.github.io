@@ -431,3 +431,18 @@ aforementioned "simple" derivatives.
 This upper bound is potentially loose though, which would hurt the applicability
 of this method.
 If the upper bound is tolerable, this should be relatively easy to program.
+
+Unfortunately, the above reasoning seems to be erronous.
+I've written up some details [here]({% post_url 2020-10-16-sensitivity-calculus %}), but "short story" is that the chain rule one can derive involves terms of the form:
+
+$$f(g(n) + g'(n))$$
+
+Its unclear how to upper bound the $$\ell_p$$ norm of this, which would be
+required to derive even (loose) upper bounds on the operator norm.
+Note that for "continuous" calculus the chain rule has terms of the form:
+
+$$f'(g(n))g'(n)$$
+
+So for a sub-multiplicative norm one could hope to get some upper bounds.
+Feel free to read the writeup for more details, but as it ends in "failure" it
+is likely not very interesting.

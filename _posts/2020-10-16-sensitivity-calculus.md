@@ -2,6 +2,7 @@
 layout: post
 title: Obstacles to the Calculus of Sensitivity
 tags: differential-privacy
+hidden: true
 ---
 
 In my [previous post]({% post_url 2020-10-15-DPsensitivity %}), I discussed how
