@@ -1,0 +1,9 @@
+I"¦<p>I have recently seen a talk on the paper <a href="https://eprint.iacr.org/2019/1234">Efficient Homomorphic Comparison
+Methods with Optimal
+Complexity</a>, which I have found quite
+interesting.
+I tried generalizing their result for a bit and hit a snag.
+Since then I have some slightly new ideas, so I decided to flesh them out here.
+At a minimum I think that this gives an interesting presentation of their
+result.</p>
+:ET
