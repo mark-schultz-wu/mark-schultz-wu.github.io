@@ -30,3 +30,5 @@ Ideas for posts:
   * Intuition of packing radius, smoothing parameter as "fuzzy" version of packing radius due to Gaussian concentration on shells in high dimensions.
 
 10. Stegonography implementation. Needs cover message distribution, play two chat bots off of eachother. Should be able to queue up data to send (in one/both directions) and send undetectably.
+
+11. Explore connection between Binary Golay code and Mersenne numbers (see page 7 of [this](https://ctnt-summer.math.uconn.edu/wp-content/uploads/sites/1632/2018/05/mersennetalkCTNT.pdf) for a short comment on it --- namely that 23 \mid 2^11 - 1 is related to the existence of the Binary Golay code).
