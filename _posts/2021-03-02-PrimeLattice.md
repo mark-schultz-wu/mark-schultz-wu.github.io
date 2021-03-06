@@ -3,7 +3,7 @@ layout: post
 title: Continuous and Discrete Prime Lattices 
 ---
 
-Today, a [paper was posted on eprint](https://eprint.iacr.org/2021/232) claiming
+Earlier this week, a [paper was posted on eprint](https://eprint.iacr.org/2021/232) claiming
 to be authored by [Schnorr](https://en.wikipedia.org/wiki/Claus_P._Schnorr), and
 claiming (in the abstract at least) to break RSA.
 The paper itself appears to have been a work-in-progress (a version of it made
@@ -28,8 +28,8 @@ In this post I will try to discuss both lattices, although I will focus on
 DP's contruction (which I understand better).
 Both are related to the complexity of factoring --- Schnorr's is designed such
 that short vectors help *break* factoring, while DP's is designed such that
-the ability to *break factoring* allows one to solve the ``Bounded Distance
-Decoding'' problem (which is a typical hard problem on lattices).
+the ability to *break factoring* allows one to solve the "Bounded Distance
+Decoding" problem (which is a typical hard problem on lattices).
 In what follows, I will focus on the $$\ell_2$$ norm (although DP also has
 results for the $$\ell_1$$ norm).
 They are also both related to "logarithms of primes", although the Schnorr
