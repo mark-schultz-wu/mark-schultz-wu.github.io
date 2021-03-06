@@ -32,3 +32,7 @@ Ideas for posts:
 10. Stegonography implementation. Needs cover message distribution, play two chat bots off of eachother. Should be able to queue up data to send (in one/both directions) and send undetectably.
 
 11. Explore connection between Binary Golay code and Mersenne numbers (see page 7 of [this](https://ctnt-summer.math.uconn.edu/wp-content/uploads/sites/1632/2018/05/mersennetalkCTNT.pdf) for a short comment on it --- namely that 23 \mid 2^11 - 1 is related to the existence of the Binary Golay code).
+   - Update--- not really interesting. One can show that for a dimension n, rank k perfect code to exist, it is necessary that n | 2^{n-k} - 1. Binary Golay consists of case (n, k) = (23, 12) of this.
+     One could try looking for further cases, but it is known that not many perfect codes can exist (essentially only Hamming codes or Golay codes).
+
+12. Is there a way of viewing the "digit decomposition" lattice as a construction D lattice?

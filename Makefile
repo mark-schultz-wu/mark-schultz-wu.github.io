@@ -1,2 +1,2 @@
 all:
-	bundle exec jekyll serve --livereload --incremental --drafts
+	jekyll serve --livereload --incremental --drafts
