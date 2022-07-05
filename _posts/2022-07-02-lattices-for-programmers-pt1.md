@@ -5,7 +5,7 @@ title: Textbook RSA and LWE
 
 This is a first post in a series of blog posts where I plan on building a
 relatively simple lattice-based public-key encryption scheme.
-This construction is not novel at all [^frodoKEM], but the intention is to
+This construction is not novel at all [[^frodoKEM]], but the intention is to
 
 * simplify certain optimizations that aren't needed for security, and
 * present things in straightforward language, in terms of simple mathematical
@@ -43,7 +43,7 @@ cryptosystem is.
 Explicitly:
 
 1. The public-key is a product of two primes $$N = pq$$, along with some value $$e$$
-   (typically hard-coded to either 3, or the better choice [^better] of $$2^{16} + 1 =
+   (typically hard-coded to either 3, or the better choice [[^better]] of $$2^{16} + 1 =
    65537$$).
 2. The secret-key is the pair $$(p, q)$$, along with an algorithm to compute "$$e$$th roots $$\bmod
    N$$", namely the map $$c\mapsto c^{1/e}\bmod N$$.
@@ -66,7 +66,7 @@ works out.
 One then shows a variety of things, such as
 * if you know $$(p,q)$$, you can efficiently take $$e$$th roots, and
 * if you don't know $$(p,q)$$, the "obvious" way to take $$e$$th roots is factoring
-  $$N$$ first [^inequivalent].
+  $$N$$ first [[^inequivalent]].
 
 [^inequivalent]: It is known that factoring *suffices* to take $$e$$th roots, but it is not known to be *necessary*, i.e. there may be faster approaches.
 The above is (roughly) a simple presentation of the RSA cryptosystem in a
@@ -179,7 +179,7 @@ As mentioned before, if there is no noise (i.e. $$\chi$$ is concentrated on $$\{
 If $$\chi$$ is uniform on $$\mathbb{Z}/q\mathbb{Z}$$, is is also straightforward to show that the problem is "perfectly secure" (but unfortunately, it is not known to be useful for cryptographic constructions).
 This leaves the intermediate case, where $$\chi$$ is a distribution on some subset of $$\mathbb{Z}/q\mathbb{Z}$$ (that is not solely $$\{0\}$$).
 For even fairly small subsets (say $$[-10, 10]$$), this is thought to be secure.
-If you actually want to get parameters that are plausibly secure, tools[^estimator] have been built by the community, but I won't bother formally checking the parameters I use are fine (they're larger than what everyone else uses, so it should be fine).
+If you actually want to get parameters that are plausibly secure, tools [[^estimator]] have been built by the community, but I won't bother formally checking the parameters I use are fine (they're larger than what everyone else uses, so it should be fine).
 
 [^estimator]: https://lattice-estimator.readthedocs.io/en/latest/?badge=latest
 
@@ -220,7 +220,7 @@ Anyway, LWE can be interpreted as a problem regarding the decodability of random
 In particular, the problem of going from $$(A, A\vec s +\vec e)$$ can be interpreted as being given a description of a random linear code ($$A$$), and a noisy encoding of a message ($$A\vec s + \vec e$$), and being asked to decode it to get back $$\vec s$$.
 Note that this is slightly different than the statement of LWE that I used (which was simply that of *distinguishing* $$(A, A\vec s+\vec e)$$ from random --- a maybe easier task), but in most settings these problems are known to be equivalent.
 
-In summary, if LWE is easy, coding theorists are able to efficiently decode a certain class of effectively optimal codes[^AWGN].
+In summary, if LWE is easy, coding theorists are able to efficiently decode a certain class of effectively optimal codes [[^AWGN]].
 Note that this is different from other cryptographic problems --- factoring large numbers is not practically useful outside of attacking cryptographic constructions.
 
 [^AWGN]: These codes are for the "Additive White Gaussian Noise Channel", roughly speaking codes for *analog* problems (like wireless communications) rather than *digital problems*.
@@ -236,7 +236,7 @@ For a (very) brief refresher on Gaussian elimination, you are given some system 
 $$ax+by = e,\qquad a'x+b'y = e',$$
 
 and must try to find some solution $$(x,y)$$ to both of them.
-Gaussian Eliminatino proceeds by taking linear combinations of the equations to "cancel out" unknowns.
+Gaussian Elimination proceeds by taking linear combinations of the equations to "cancel out" unknowns.
 For example, multiplying the first equation by $$a'$$, the second by $$a$$, and subtracting leads to
 
 $$(a'b-b'a)y = a'e-e'a.$$
@@ -251,7 +251,7 @@ While there are many theoretical justifications for lattice-based encryption, I 
 Still, I'll explicitly discuss the issue of NP-hardness, as it is one that many people casually get wrong.
 
 First, it is worth mentioning that NP-hardness is subtly the wrong notion for cryptography.
-This is because it is a *worst-case* notion, while cryptography needs *average case* hardness.
+This is because it is a *worst-case* notion, while cryptography needs *average-case* hardness.
 For example, SAT is both
 
 1. a worst-case hard problem (if you can solve it you can solve any NP problem!)
@@ -277,7 +277,7 @@ So the problem has gotten easier in some controlled way.
 Anyway, $$\mathsf{SVP}_1$$ is (under some reasonable technical assumptions) NP-hard.
 With some other technical details omitted, if you can solve LWE you can also solve $$\mathsf{SVP}_{\Omega(\sqrt{n})}$$.
 Some people mis-interpret this, and say "lattice-based encryption is based on an NP-hard problem".
-This is wrong though --- formally, $$\mathsf{SVP}_{\Omega(\sqrt{n})}$$ is known to be in NP and coNP, so (under even more technical assumptions[^PHcollapse]) *can't* be NP-hard.
+This is wrong though --- formally, $$\mathsf{SVP}_{\Omega(\sqrt{n})}$$ is known to be in NP and coNP, so (under even more technical assumptions [[^PHcollapse]]) *can't* be NP-hard.
 
 [^PHcollapse]: Formally, it is not NP-hard unless the polynomial hierarchy collapses all the way.
 
@@ -288,20 +288,22 @@ It is possible that more efficient reductions are found, but the current ones ar
 
 ## Quantum Hardness?
 
-Lattice-based encryption (unlike RSA, or the elliptic-curve discrete logarithm problem) is thought to be hard for *quantum* computers as well.
+Lattice-based encryption (unlike RSA, or the elliptic-curve discrete logarithm problem) is thought to be hard for *quantum* computers to break as well.
 I'm no quantum complexity theorist, so I'll briefly describe the justification I know for the hardness (although, similar to classical hardness, it really boils down to "many smart people have thought about it and failed to get fast algorithms").
 
-Roughly speaking, many quantum algorithms that obtain *large* speed increases proceed by solving a very general problem(the [Hidden subgroup problem](https://en.wikipedia.org/wiki/Hidden_subgroup_problem)).
+Roughly speaking, many quantum algorithms that obtain *large* speed increases proceed by solving a very general problem (the [Hidden subgroup problem](https://en.wikipedia.org/wiki/Hidden_subgroup_problem)).
 In particular, Factoring and the Discrete Logarithm problem can both be phrased as HSP instances and then solved in (quantum) polynomial time.
 Can lattice-based encryption be phrased as an HSP instance?
-The answer is (perhaps surprisingly) *yes*.
+The answer is (perhaps surprisingly, given the claimed quantum security) *yes*.
 
 HSP instances are parameterzed by a choice of group $$G$$.
 The HSP instances we know how to solve efficiently are mostly over *abelian* groups $$G$$.
 Lattice-based encryption can be phrased as an HSP over a *non-abelian* group (the Dihedral group).
 There are some reasons to think this abelian/non-abelian difference should be a structural "switching point" in the complexity of the problem (the HSP heavily relies on the quantum fourier transform, and fourier transforms are *much* nicer over abelian groups).
 
-That all being said, there is nothing stopping someone from giving a quantum attack on LWE tomorrow, similarly to how there's nothing stopping someone from giving a linear-time algorithm for SAT tomorrow.
+That all being said, there is nothing stopping someone from giving a quantum attack on LWE tomorrow, similarly to how there's nothing stopping someone from giving a linear-time algorithm for SAT tomorrow [[^SAT]].
 Such uncertainty is a core part of cryptography.
+
+[^SAT]: See [here](https://cstheory.stackexchange.com/questions/93/what-are-the-best-current-lower-bounds-on-3sat) for some discussion on explicit bounds on the running time of a SAT algorithm. None preclude an algorithm of both $$O(n)$$ running time and space.
 
 ----

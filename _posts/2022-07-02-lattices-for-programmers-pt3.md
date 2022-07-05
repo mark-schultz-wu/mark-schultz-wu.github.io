@@ -148,9 +148,4 @@ The (main) optimization it misses out on is that of appealing to *algebraically 
 I might write up a blog post on this topic, but it is fairly advanced in comparison, as it most naturally phrased in terms of modules over quotients of polynomial rings.
 While this topics are very possible to concretely work with (i.e. they aren't "abstract nonsense"), it is decidedly more advanced than simple matrix multiplications and modular arithmetic.
 
-
-
-
-
-
 ---

@@ -69,8 +69,10 @@ This gives (after we have defined the aforementioned matrix/vector/sampling oper
             return b
 
 Note that this code works for cryptographically large parameters (which is $$n\in [500,1000]$$ roughly and $$q\approx 2^{10}$$).
-This is because lattice-based encryption is essentially just simple linear algebra on word-size integers!
+This is because lattice-based encryption is essentially just simple linear algebra on word-size integers [[^RING]]!
 With this idea for how lattice-based encryption should work, we can re-introduce the noise, and fix the issues it brings about.
+
+[^RING]: Here, "integers" is somewhat particular to FrodoKEM. Optimized schemes (based on structured lattices) such as Saber and Kyber instead do "linear algebra" with vectors/matrices of *polynomials*.
 
 # Noisey (Private-key) Lattice-based Encryption
 
