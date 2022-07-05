@@ -21,7 +21,11 @@ Ideas for posts:
   * Replace X_i w/ discrete r.v.'s - sum now has Z support. What distribution is it?
 
 7. The hash h_{a, b}(x) = (<a, x> + b) mod p where a, x in F_{p^k}, <a, x> takes their base-p decomp then inner product.
-  This is strongly-universal (Mitzenmacher p 403). How similar is this to gadget-decomp stuff in lattices?
+  This is strongly-universal (Mitzenmacher p 403). How similar is this to gadget-decomp stuff in lattices (say where $x$ is the secret, and you assume that the secret $s = (x, 1)$ is primitive, as is standard).
+  - Gadget is important for ability to take *preimages* though. Is
+    strongly-universal a desirable property?
+  - There is a fourier-analytic interpretation of gadget (encoding). Can one
+    combine this with the uncertainty principle in an interesting way?
 
 8. MAJ-boosting (BPP) vs Existential-boosting (RP/coRP).
 
