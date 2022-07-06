@@ -194,7 +194,7 @@ I'll describe a few below, where again given my elementary focus I will keep thi
 This is to say that the rest of this section will be "informal but formalizable".
 
 Before proceeding, I will say that the "real reason" why LWE is thought to be hard is because a lot of people have tried breaking it, and haven't had much success.
-In particular, the best attacks take roughly time $$2^{cn}$$ for $$n\approx 0.28$$. This is better than RSA ($$2^{\sqrt[3]{n}}$$), and worse than elliptic-curve discrete logarithm ($$2^{n/2}$$).
+In particular, the best attacks take roughly time $$2^{cn}$$ for $$c\approx 0.292$$. This is better than RSA ($$2^{\sqrt[3]{n}}$$), and worse than elliptic-curve discrete logarithm ($$2^{n/2}$$).
 
 It's an open secret in cryptography that we can't have "real reasons" why any particular problem is hard, as it is consistent with what is known in complexity theory that P = NP, and cryptography doesn't exist.
 Of course, few cryptographers *believe* this, but we can't rule it out!
@@ -268,7 +268,7 @@ There is a problem called $$\mathsf{SVP}_\gamma$$ (the Gap Shortest Vector Probl
 This is a decision problem, where given a matrix $$A$$ and number $$t$$, one has to decide if
 
 1. $$\min_{\vec z \in \mathbb{Z}^n\setminus\{0\}} \lVert A\vec z\rVert < t$$, or
-2. $$\min_{\vec z\in\mathbb{Z}^n\setminus\{0\}} \lVert A\vec s\rVert \geq \gamma t$$.
+2. $$\min_{\vec z\in\mathbb{Z}^n\setminus\{0\}} \lVert A\vec z\rVert \geq \gamma t$$.
 
 If $$t \leq \min_{\vec z\in \mathbb{Z}^n\setminus\{0\}} \lVert A\vec z\rVert < \gamma t$$, the algorithm can say whatever (both "true" and "false" count as correct behavior).
 The idea is roughly as follows --- when $$\gamma = 1$$, the algorithm has to *perfectly* distinguish between the two cases, while for $$\gamma > 1$$, the algorithm only has to distinguish between instances that are "far apart" in a way that is measured by $$\gamma$$.
@@ -284,7 +284,7 @@ This is wrong though --- formally, $$\mathsf{SVP}_{\Omega(\sqrt{n})}$$ is known 
 There are other caveats about concretely applying the aforementioned connection to $$\mathsf{SVP}_\gamma$$ (that have to do with "tightness" of the reduction).
 Roughly speaking, the issue is one of "hidden constants in $$O(\cdot)$$ notation".
 For example, [one analysis](https://eprint.iacr.org/2016/360.pdf) of the aforementioned reduction is that if one can solve LWE in time $$T$$, then one can solve $$\mathsf{SVP}_{\Omega(\sqrt{n})}$$ in time $$\approx 2^{500}T$$.
-It is possible that more efficient reductions are found, but the current ones are mostly (asymptotically) interesting.
+It is possible that more efficient reductions are found, but the current ones are mostly asymptotically interesting.
 
 ## Quantum Hardness?
 
