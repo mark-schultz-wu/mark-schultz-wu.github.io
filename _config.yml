@@ -3,10 +3,10 @@
 #
 
 # Name of your site (displayed in the header)
-name: Mark Schultz
+name: Mark Schultz-Wu
 
 # Short bio or description (displayed in the header)
-description: PhD Student in CS at UCSD
+description: Lattice Cryptographer
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 avatar: https://raw.githubusercontent.com/mark-schultz/mark-schultz.github.io/master/images/profile-pic.jpg
@@ -19,16 +19,16 @@ future: true
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:
-  email: mdschultz@eng.ucsd.edu
+  email: mark@schultz-wu.com
   facebook:
   flickr:
-  github: mark-schultz
+  github: mark-schultz-wu
   instagram:
   linkedin:
   pinterest:
   rss: # just type anything here for a working RSS icon
   twitter: Mark_Schultz
-  stackoverflow:   users/6511076/mark
+  stackoverflow:   users/6511076/mark-schultz-wu
   youtube: # channel/<your_long_string> or user/<user-name>
   googleplus: # anything in your profile username that comes after plus.google.com/
 
@@ -42,7 +42,7 @@ google_analytics:
 
 # Your website URL (e.g. http://barryclark.github.io or http://www.barryclark.co)
 # Used for Sitemap.xml and your RSS feed
-url: http://mark-schultz.github.io
+url: http://mark-schultz-wu.github.io
 
 # If you're hosting your site at a Project repository on GitHub pages
 # (http://yourusername.github.io/repository-name)
