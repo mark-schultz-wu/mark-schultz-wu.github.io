@@ -1,181 +1,382 @@
-// Phase 0 placeholder styles — intentionally minimal. Real theme comes later.
-:root { --measure: 42rem; }
+// =============================================================================
+// Theme — "editorial-technical". Refined serif reading body for long-form math,
+// sans-serif UI chrome, one restrained accent. Light + dark via CSS variables
+// (auto by prefers-color-scheme, overridable by [data-theme] from the toggle).
+// Everything visual lives in variables below — swap them to re-skin the site.
+// =============================================================================
 
-body {
-  font-family: Georgia, "Times New Roman", serif;
-  line-height: 1.6;
-  color: #222;
-  max-width: var(--measure);
-  margin: 0 auto;
-  padding: 2rem 1.25rem 4rem;
+// ---- Fonts (system stacks; no external requests) ----------------------------
+$serif: "Charter", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+  Cambria, "Times New Roman", serif;
+$sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+  sans-serif;
+$mono: "JetBrains Mono", "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+// ---- Palette ----------------------------------------------------------------
+:root {
+  --measure: 40rem;
+
+  --bg: #fbfbf9;
+  --surface: #f2f1ea;
+  --fg: #1c1c1a;
+  --muted: #6b6b63;
+  --border: #e3e2da;
+  --accent: #2f56ab;
+  --accent-hover: #23448c;
+  --accent-contrast: #ffffff;
+  --tag-bg: #eaeef8;
+  --tag-fg: #2f56ab;
+  --note-bg: #edf1fb;
+  --note-border: #2f56ab;
+  --warn-bg: #fbf1e7;
+  --warn-border: #c06a2b;
+  --code-bg: #1e1e2e;   // catppuccin-mocha base (build-time syntax theme)
+  --code-fg: #cdd6f4;
+  --selection: #cfe0ff;
 }
 
+// Dark palette, shared by the OS-preference path and the explicit toggle.
+// A mixin (not @extend) — Sass cannot @extend a placeholder across @media
+// boundaries, which silently drops the prefers-color-scheme guard.
+@mixin dark-vars {
+  --bg: #15151a;
+  --surface: #1e1e26;
+  --fg: #e6e5dd;
+  --muted: #9b998f;
+  --border: #2c2c34;
+  --accent: #8fb0ff;
+  --accent-hover: #b0c6ff;
+  --accent-contrast: #15151a;
+  --tag-bg: #23232c;
+  --tag-fg: #a9c1ff;
+  --note-bg: #1a2033;
+  --note-border: #6f8fe0;
+  --warn-bg: #2a2018;
+  --warn-border: #c98a54;
+  --code-bg: #181825;
+  --code-fg: #cdd6f4;
+  --selection: #2c3a63;
+}
+
+// Auto: follow the OS, unless the reader forced light.
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { @include dark-vars; }
+}
+// Explicit toggle to dark wins regardless of OS.
+:root[data-theme="dark"] { @include dark-vars; }
+
+// ---- Base -------------------------------------------------------------------
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: $serif;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--fg);
+  background: var(--bg);
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 5rem;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--selection); }
+
+p { margin: 0 0 1.2rem; }
+
+a {
+  color: var(--accent);
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  text-underline-offset: 2px;
+}
+a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
+
+h1, h2, h3, h4 {
+  font-family: $serif;
+  line-height: 1.2;
+  font-weight: 650;
+  margin: 2.4rem 0 0.9rem;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: 2rem; margin-top: 0; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.22rem; }
+h4 { font-size: 1.05rem; }
+
+hr { border: 0; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+blockquote {
+  margin: 1.5rem 0;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  border-left: 3px solid var(--border);
+  color: var(--muted);
+  font-style: italic;
+}
+
+img { max-width: 100%; height: auto; }
+
+// ---- Code -------------------------------------------------------------------
+code, pre, kbd, samp { font-family: $mono; }
+:not(pre) > code {
+  font-size: 0.88em;
+  background: var(--surface);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+pre {
+  overflow-x: auto;
+  padding: 0.9rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  background: var(--code-bg) !important;
+  color: var(--code-fg);
+  border: 1px solid var(--border);
+}
+pre code { background: none; padding: 0; font-size: inherit; }
+
+// ---- Tables -----------------------------------------------------------------
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  display: block;
+  overflow-x: auto;
+}
+th, td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: left; }
+th { font-family: $sans; font-size: 0.85rem; letter-spacing: 0.02em; }
+
+// ---- Masthead / nav ---------------------------------------------------------
 .masthead {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.75rem;
-  margin-bottom: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.9rem;
+  margin-bottom: 2.5rem;
 
-  .site-name { font-weight: bold; font-size: 1.25rem; text-decoration: none; color: #111; }
-  nav a { margin-left: 1rem; }
+  .site-name {
+    font-family: $serif;
+    font-weight: 650;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+  nav {
+    font-family: $sans;
+    font-size: 0.92rem;
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+  }
+  nav a { color: var(--muted); text-decoration: none; }
+  nav a:hover { color: var(--accent); }
 }
 
-a { color: #1a56b8; }
-
-h1, h2, h3 { line-height: 1.25; }
-
-time { color: #777; font-size: 0.9rem; }
-
-pre {
-  overflow-x: auto;
-  padding: 0.85rem 1rem;
+// Theme toggle button
+.theme-toggle {
+  font-family: $sans;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
   border-radius: 6px;
-  font-size: 0.9rem;
+  padding: 0.15rem 0.5rem;
+  cursor: pointer;
+  line-height: 1.4;
 }
-code { font-family: "SF Mono", Menlo, Consolas, monospace; }
+.theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
 
-.post-summary { margin-bottom: 2rem; }
-
-.footer {
-  margin-top: 4rem;
-  border-top: 1px solid #ddd;
-  padding-top: 1rem;
-  font-size: 0.9rem;
-  color: #777;
-}
-
-// KaTeX display blocks shouldn't overflow on mobile
-.katex-display { overflow-x: auto; overflow-y: hidden; }
-
-// Collected footnotes at the bottom of each post
-.footnotes {
-  margin-top: 3rem;
-  padding-top: 1rem;
-  border-top: 1px solid #ddd;
-  font-size: 0.9rem;
-  color: #444;
-}
-
-// --- Post meta: date + tags under the title ---
+// ---- Post header + meta -----------------------------------------------------
+.post-header h1 { margin-bottom: 0.4rem; }
 .post-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.5rem 0.75rem;
-  margin-top: 0.25rem;
+  gap: 0.5rem 0.8rem;
+  font-family: $sans;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
 }
+time { color: var(--muted); }
 .tags { display: inline-flex; flex-wrap: wrap; gap: 0.4rem; }
 .tag {
-  font-family: system-ui, sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   text-decoration: none;
-  color: #1a56b8;
-  background: #eef2fb;
-  padding: 0.1rem 0.5rem;
+  color: var(--tag-fg);
+  background: var(--tag-bg);
+  padding: 0.12rem 0.55rem;
   border-radius: 999px;
 }
-.tag:hover { background: #dde6f7; }
+.tag:hover { filter: brightness(0.97); text-decoration: none; }
 
-// --- Heading anchor links (insert_anchor_links = "left") ---
+// ---- Post list (home + taxonomy) --------------------------------------------
+.post-summary, article.post-summary { margin-bottom: 2rem; }
+.post-summary h2 { margin: 0 0 0.2rem; font-size: 1.3rem; }
+.post-summary h2 a { text-decoration: none; }
+.post-summary h2 a:hover { text-decoration: underline; }
+.post-summary time { font-family: $sans; font-size: 0.85rem; }
+
+// ---- Heading anchors (insert_anchor_links = "left") -------------------------
 .zola-anchor {
   float: left;
-  margin-left: -1.1em;
+  margin-left: -1.15em;
   padding-right: 0.35em;
   text-decoration: none;
-  color: #bbb;
+  color: var(--muted);
   opacity: 0;
-  transition: opacity 0.1s;
+  transition: opacity 0.12s;
+  font-weight: 400;
 }
 h1:hover .zola-anchor, h2:hover .zola-anchor,
-h3:hover .zola-anchor, h4:hover .zola-anchor { opacity: 1; }
+h3:hover .zola-anchor, h4:hover .zola-anchor { opacity: 0.6; }
+.zola-anchor:hover { opacity: 1 !important; color: var(--accent); }
 
-// --- Table of contents ---
+// ---- Table of contents ------------------------------------------------------
 .toc {
-  margin: 1.5rem 0;
-  padding: 0.5rem 1rem;
-  background: #f7f7f5;
-  border: 1px solid #e5e5e0;
-  border-radius: 6px;
-  font-size: 0.92rem;
-  summary { cursor: pointer; font-weight: bold; }
-  ul { margin: 0.5rem 0 0; padding-left: 1.2rem; }
-  ul ul { padding-left: 1.1rem; }
-  li { margin: 0.15rem 0; }
+  font-family: $sans;
+  margin: 1.5rem 0 2rem;
+  padding: 0.6rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+
+  summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+  ul { margin: 0.5rem 0 0.2rem; padding-left: 1.2rem; list-style: none; }
+  ul ul { padding-left: 1rem; }
+  li { margin: 0.2rem 0; }
+  li::before { content: "§"; color: var(--muted); margin-right: 0.4rem; opacity: 0.5; }
+  ul ul li::before { content: "·"; }
+  a { text-decoration: none; }
+  a:hover { text-decoration: underline; }
 }
 
-// --- Series navigation (banner above + prev/next pager below) ---
+// ---- Series navigation ------------------------------------------------------
 .series-nav {
-  margin: 1.5rem 0;
-  padding: 0.75rem 1rem;
-  background: #f3f6ff;
-  border-left: 3px solid #1a56b8;
-  border-radius: 0 6px 6px 0;
-  font-size: 0.92rem;
+  font-family: $sans;
+  margin: 1.5rem 0 2rem;
+  padding: 0.8rem 1rem;
+  background: var(--note-bg);
+  border-left: 3px solid var(--note-border);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.9rem;
 
-  .series-nav-head { font-weight: bold; margin-bottom: 0.4rem; }
-  ol { margin: 0; padding-left: 1.3rem; }
-  li.current { color: #444; font-weight: bold; }
+  .series-nav-head { font-weight: 600; margin-bottom: 0.4rem; color: var(--muted); }
+  .series-nav-head a { font-weight: 700; }
+  ol { margin: 0; padding-left: 1.4rem; }
+  li { margin: 0.15rem 0; }
+  li.current { color: var(--fg); font-weight: 700; }
 }
 .series-pager {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.5rem;
   margin-top: 3rem;
-  padding-top: 1rem;
-  border-top: 1px solid #ddd;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+  font-family: $sans;
   font-size: 0.92rem;
 
+  a { text-decoration: none; }
+  a:hover { text-decoration: underline; }
   .next { text-align: right; margin-left: auto; }
 }
 
-// --- Taxonomy pages ---
-.term-list { list-style: none; padding: 0; }
-.term-list li { margin: 0.35rem 0; }
-.term-list .count {
-  color: #999;
-  font-size: 0.8rem;
-  margin-left: 0.4rem;
-}
+// ---- Taxonomy pages ---------------------------------------------------------
+.term-list { list-style: none; padding: 0; font-family: $sans; }
+.term-list li { margin: 0.4rem 0; }
+.term-list .count { color: var(--muted); font-size: 0.8rem; margin-left: 0.4rem; }
 
-// --- Callouts: {% aside() %} / {% warning() %} ---
+// ---- Callouts (aside / warning) ---------------------------------------------
 .callout {
-  margin: 1.5rem 0;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
+  margin: 1.6rem 0;
+  padding: 0.8rem 1.1rem;
+  border-radius: 8px;
   border-left: 4px solid;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
 
-  .callout-title { font-weight: bold; margin: 0 0 0.4rem; }
+  .callout-title {
+    font-family: $sans;
+    font-weight: 650;
+    font-size: 0.9rem;
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.01em;
+  }
   .callout-body > :first-child { margin-top: 0; }
   .callout-body > :last-child { margin-bottom: 0; }
 }
-.callout-note { background: #f3f6ff; border-color: #1a56b8; }
-.callout-warning { background: #fff6f0; border-color: #d9772b; }
+.callout-note { background: var(--note-bg); border-color: var(--note-border); }
+.callout-warning { background: var(--warn-bg); border-color: var(--warn-border); }
 
-// --- Figures ---
+// ---- Figures ----------------------------------------------------------------
 .figure {
-  margin: 1.5rem 0;
+  margin: 1.8rem 0;
   text-align: center;
 
-  img { max-width: 100%; height: auto; border-radius: 4px; }
+  img { border-radius: 6px; border: 1px solid var(--border); }
   figcaption {
+    font-family: $sans;
     margin-top: 0.5rem;
     font-size: 0.85rem;
-    color: #777;
+    color: var(--muted);
   }
 }
 
-// --- Interactive wasm demos ---
+// ---- Interactive wasm demos -------------------------------------------------
 .demo {
-  margin: 1.5rem 0;
-  padding: 1rem;
-  border: 1px dashed #cbd2dc;
-  border-radius: 6px;
-  background: #fbfbfa;
+  font-family: $sans;
+  margin: 1.8rem 0;
+  padding: 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
 
-  input[type="number"] { width: 5rem; }
-  .demo-output { font-weight: bold; margin-left: 0.5rem; }
-  &.demo-error { border-color: #d9772b; background: #fff6f0; }
+  input[type="number"], input[type="range"] { accent-color: var(--accent); }
+  input[type="number"] { width: 5rem; font: inherit; padding: 0.2rem 0.3rem; }
+  .demo-output { font-weight: 650; margin-left: 0.5rem; color: var(--accent); }
+  &.demo-error { border-color: var(--warn-border); background: var(--warn-bg); }
+}
+
+// ---- Footnotes --------------------------------------------------------------
+.footnotes {
+  margin-top: 3.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.92rem;
+  color: var(--muted);
+
+  a { overflow-wrap: anywhere; }
+}
+sup a, .footnote-reference a { text-decoration: none; }
+
+// ---- KaTeX ------------------------------------------------------------------
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.2rem 0; }
+.katex { font-size: 1.05em; }
+
+// ---- Footer -----------------------------------------------------------------
+.footer {
+  font-family: $sans;
+  margin-top: 4.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.2rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+
+  a { color: var(--muted); }
+  a:hover { color: var(--accent); }
+}
+
+// ---- Small screens ----------------------------------------------------------
+@media (max-width: 34rem) {
+  body { font-size: 1.06rem; padding: 1.75rem 1.1rem 4rem; }
+  h1 { font-size: 1.7rem; }
+  .zola-anchor { display: none; }
 }
