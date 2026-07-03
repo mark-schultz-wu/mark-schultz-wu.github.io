@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} – {{ config.title }}{% endblock title %}
+
+{% block content %}
+<article class="post">
+  <header class="post-header">
+    <h1>{{ page.title }}</h1>
+    <div class="post-meta">
+      {% if page.date %}<time datetime="{{ page.date }}">{{ page.date | date(format="%B %-d, %Y") }}</time>{% endif %}
+      {% if page.taxonomies.tags %}
+        <span class="tags">
+          {% for tag in page.taxonomies.tags %}
+            <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}">{{ tag }}</a>
+          {% endfor %}
+        </span>
+      {% endif %}
+    </div>
+  </header>
+
+  {# ---- Series banner: which series this post belongs to ---- #}
+  {% if page.taxonomies.series %}
+    {% for series_name in page.taxonomies.series %}
+      {% set series_tax = get_taxonomy(kind="series") %}
+      {% for term in series_tax.items %}
+        {% if term.name == series_name %}
+          {% set ordered = term.pages | sort(attribute="extra.series_order") %}
+          <nav class="series-nav" aria-label="Series navigation">
+            <div class="series-nav-head">
+              Part of the series
+              <a href="{{ term.permalink | safe }}">{{ series_name }}</a>
+            </div>
+            <ol class="series-nav-list">
+              {% for p in ordered %}
+                <li{% if p.permalink == page.permalink %} class="current" aria-current="true"{% endif %}>
+                  {% if p.permalink == page.permalink %}
+                    {{ p.title }}
+                  {% else %}
+                    <a href="{{ p.permalink | safe }}">{{ p.title }}</a>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ol>
+          </nav>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+
+  {# ---- Table of contents (only if the post has headings) ---- #}
+  {% if page.toc %}
+    <details class="toc" open>
+      <summary>Contents</summary>
+      <ul>
+        {% for h1 in page.toc %}
+          <li><a href="#{{ h1.id | safe }}">{{ h1.title }}</a>
+            {% if h1.children %}
+              <ul>
+                {% for h2 in h1.children %}
+                  <li><a href="#{{ h2.id | safe }}">{{ h2.title }}</a></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </details>
+  {% endif %}
+
+  <div class="post-body">
+    {{ page.content | safe }}
+  </div>
+
+  {# ---- Prev/next within the series ---- #}
+  {% if page.taxonomies.series %}
+    {% for series_name in page.taxonomies.series %}
+      {% set series_tax = get_taxonomy(kind="series") %}
+      {% for term in series_tax.items %}
+        {% if term.name == series_name %}
+          {% set ordered = term.pages | sort(attribute="extra.series_order") %}
+          {% set_global prev_page = false %}
+          {% set_global next_page = false %}
+          {% set_global found = false %}
+          {% for p in ordered %}
+            {% if found and not next_page %}
+              {% set_global next_page = p %}
+            {% endif %}
+            {% if p.permalink == page.permalink %}
+              {% set_global found = true %}
+            {% endif %}
+            {% if not found %}
+              {% set_global prev_page = p %}
+            {% endif %}
+          {% endfor %}
+          {% if prev_page or next_page %}
+            <nav class="series-pager" aria-label="Series pager">
+              <span class="prev">
+                {% if prev_page %}<a rel="prev" href="{{ prev_page.permalink | safe }}">← {{ prev_page.title }}</a>{% endif %}
+              </span>
+              <span class="next">
+                {% if next_page %}<a rel="next" href="{{ next_page.permalink | safe }}">{{ next_page.title }} →</a>{% endif %}
+              </span>
+            </nav>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+</article>
+{% endblock content %}

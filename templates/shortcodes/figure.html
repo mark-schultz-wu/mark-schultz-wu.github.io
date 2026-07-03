@@ -1,0 +1,5 @@
+<figure class="figure">
+  <img src="{% if src is starting_with('http') %}{{ src | safe }}{% else %}{{ get_url(path=src) | safe }}{% endif %}"
+       alt="{{ alt | default(value=caption | default(value='')) }}"{% if width %} style="max-width: {{ width }}"{% endif %} />
+  {% if caption %}<figcaption>{{ caption | markdown(inline=true) | safe }}</figcaption>{% endif %}
+</figure>

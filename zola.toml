@@ -1,0 +1,47 @@
+# NOTE: this git-dev Zola build uses `zola.toml` (+ [markdown.highlighting]);
+# stable Zola uses config.toml. Content is authored in content-src/ and
+# generated into content/ by scripts/wrap_math.py — build via `just build`.
+base_url = "https://mark.schultz-wu.com"
+title = "Mark Schultz-Wu"
+description = "Lattice & FHE cryptography, and assorted TCS."
+
+compile_sass = true
+build_search_index = false
+generate_feeds = true
+feed_filenames = ["atom.xml"]
+
+[[taxonomies]]
+name = "tags"
+feed = true
+
+[[taxonomies]]
+name = "series"
+
+[link_checker]
+# These hosts serve 403/404 to non-browser clients (bot-blocking), so `zola
+# check` flags them as broken though they load fine in a browser. Skip them so
+# `just check` stays a real signal for internal (@/blog/*.md) link breakage.
+skip_prefixes = [
+    "https://eprint.iacr.org",
+    "https://privacytools.seas.harvard.edu",
+    "https://twitter.com",
+    "https://x.com",
+]
+# Wikipedia serves anchors via JS; the raw HTML lacks them, so anchor checks
+# false-positive. Skip anchor validation for it (the page itself is still checked).
+skip_anchor_prefixes = [
+    "https://en.wikipedia.org",
+]
+
+[markdown]
+# Collect footnote definitions into a list at the bottom of each page
+# (kramdown did this; pulldown-cmark renders them in-place without it).
+bottom_footnotes = true
+# Safe now: all math is wrapped into shortcodes by scripts/wrap_math.py, so
+# smart quotes/dashes never touch equation internals (primes, subscripts).
+smart_punctuation = true
+
+[markdown.highlighting]
+theme = "catppuccin-mocha"
+
+[extra]
