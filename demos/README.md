@@ -4,8 +4,11 @@ Each subdirectory is a self-contained Rust crate compiled to WebAssembly and
 embedded in a post via the `demo` shortcode:
 
 ```
-{{ demo(name="adder") }}
+{{ demo(name="noise-budget") }}
 ```
+
+The bundled example, `noise-budget/`, is an interactive LWE noise-budget
+visualizer (encrypt a bit, dial the error, watch decryption fail past q/4).
 
 ## Convention
 

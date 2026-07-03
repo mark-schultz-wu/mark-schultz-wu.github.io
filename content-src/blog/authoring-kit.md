@@ -40,11 +40,12 @@ Warnings flag caveats. Math here is also safe: $\|x\|_\infty \le q/2$.
 
 # Interactive demo
 
-The demo below is a Rust → wasm placeholder (`demos/adder/`). Build it with
-`just demos`; until then it degrades gracefully to the fallback text.
+The demo below is a real Rust → wasm demo (`demos/noise-budget/`) — an LWE
+noise-budget visualizer. Build it with `just demos`; until then it degrades
+gracefully to the fallback text.
 
-{% demo(name="adder") %}
-Interactive adder (build with `just demos`).
+{% demo(name="noise-budget") %}
+LWE noise-budget demo (build with `just demos`).
 {% end %}
 
 # Footnotes

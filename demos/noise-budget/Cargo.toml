@@ -1,0 +1,27 @@
+[package]
+name = "noise-budget"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# Interactive LWE "noise budget" demo: encrypt a bit, add adjustable error,
+# watch decryption succeed only while |e| stays under q/4. Compiled by
+# `just demos` into static/demos/noise-budget/ and embedded with
+# {% demo(name="noise-budget") %}.
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
+
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  "Document", "Element", "HtmlElement", "HtmlInputElement",
+  "Window", "Event", "Node", "CssStyleDeclaration",
+]
+
+[profile.release]
+opt-level = "s"
+lto = true
