@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+
+    {# Apply saved light/dark choice before first paint to avoid a flash. #}
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark")
+            document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- KaTeX (math), rendered client-side via auto-render -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+      onload="renderMathInElement(document.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+          {left: '\\[', right: '\\]', display: true},
+          {left: '\\(', right: '\\)', display: false}
+        ],
+        throwOnError: false
+      });"></script>
+
+    <link rel="stylesheet" href="{{ get_url(path='main.css') | safe }}" />
+    {% if config.generate_feeds %}
+    <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path='atom.xml') | safe }}" />
+    {% endif %}
+  </head>
+  <body>
+    <header class="masthead">
+      <a href="{{ config.base_url }}" class="site-name">{{ config.title }}</a>
+      <nav>
+        <a href="{{ config.base_url }}">Blog</a>
+        <a href="/tags/">Tags</a>
+        <a href="/about/">About</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" data-theme-toggle>◐</button>
+      </nav>
+    </header>
+
+    <main>
+      {% block content %}{% endblock content %}
+    </main>
+
+    <footer class="footer">
+      <p>Mark Schultz-Wu &middot; <a href="mailto:mark@schultz-wu.com">email</a> &middot;
+      <a href="https://scholar.google.com/citations?user=gkiE2lMAAAAJ">Scholar</a> &middot;
+      <a href="https://github.com/mark-schultz-wu">GitHub</a></p>
+    </footer>
+
+    {# Theme toggle: flip between light/dark and persist the choice. #}
+    <script>
+      (function () {
+        var btn = document.querySelector("[data-theme-toggle]");
+        if (!btn) return;
+        var root = document.documentElement;
+        function current() {
+          return root.getAttribute("data-theme")
+            || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        }
+        btn.addEventListener("click", function () {
+          var next = current() === "dark" ? "light" : "dark";
+          root.setAttribute("data-theme", next);
+          try { localStorage.setItem("theme", next); } catch (e) {}
+        });
+      })();
+    </script>
+  </body>
+</html>

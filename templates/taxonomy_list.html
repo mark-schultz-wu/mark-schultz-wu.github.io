@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ taxonomy.name | capitalize }} – {{ config.title }}{% endblock title %}
+
+{% block content %}
+<section class="taxonomy">
+  <h1>{{ taxonomy.name | capitalize }}</h1>
+  <ul class="term-list">
+    {% for term in terms %}
+      {# Count only public pages; hidden posts must not create ghost terms/counts. #}
+      {% set hidden = term.pages | filter(attribute="extra.hidden", value=true) | length %}
+      {% set visible = term.pages | length - hidden %}
+      {% if visible > 0 %}
+      <li>
+        <a href="{{ term.permalink | safe }}">{{ term.name }}</a>
+        <span class="count">{{ visible }}</span>
+      </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</section>
+{% endblock content %}

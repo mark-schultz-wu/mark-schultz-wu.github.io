@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ term.name }} – {{ config.title }}{% endblock title %}
+
+{% block content %}
+<section class="post-list">
+  <h1>{{ taxonomy.name | capitalize }}: {{ term.name }}</h1>
+  {% if taxonomy.name == "series" %}
+    {% set pages = term.pages | sort(attribute="extra.series_order") %}
+  {% else %}
+    {% set pages = term.pages %}
+  {% endif %}
+  {% for page in pages %}
+    {% if not page.extra.hidden %}
+      <article class="post-summary">
+        <h2><a href="{{ page.permalink | safe }}">{{ page.title }}</a></h2>
+        {% if page.date %}<time datetime="{{ page.date }}">{{ page.date | date(format="%B %-d, %Y") }}</time>{% endif %}
+        <p>{{ page.summary | default(value="") | safe }}</p>
+      </article>
+    {% endif %}
+  {% endfor %}
+</section>
+{% endblock content %}

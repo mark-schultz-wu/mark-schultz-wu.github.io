@@ -1,0 +1,8 @@
+<aside class="callout callout-note">
+  {% if title %}<p class="callout-title">{{ title }}</p>{% endif %}
+  <div class="callout-body">
+
+{{ body | markdown | safe }}
+
+  </div>
+</aside>

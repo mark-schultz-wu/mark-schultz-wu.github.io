@@ -1,0 +1,8 @@
+<aside class="callout callout-warning">
+  <p class="callout-title">{{ title | default(value="Warning") }}</p>
+  <div class="callout-body">
+
+{{ body | markdown | safe }}
+
+  </div>
+</aside>

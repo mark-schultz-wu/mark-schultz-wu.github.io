@@ -1,0 +1,40 @@
+{# Interactive Rust->wasm demo embed.
+
+   Usage:  {{ demo(name="adder") }}  or  {% demo(name="adder") %}fallback{% end %}
+
+   Build convention (see demos/README.md):
+     demos/<name>/            Rust crate (cdylib, wasm-bindgen)
+     -> compiled by `just demos` into static/demos/<name>/
+          <name>.js           wasm-bindgen ES module glue
+          <name>_bg.wasm      the wasm binary
+   The module's default export is called with the mount element so the demo
+   can attach its UI. Nothing loads until the element scrolls into view. #}
+<div class="demo" id="demo-{{ name }}" data-demo="{{ name }}">
+  <noscript>This interactive demo requires JavaScript and WebAssembly.</noscript>
+  {% if body %}<div class="demo-fallback">{{ body | markdown | safe }}</div>{% endif %}
+</div>
+<script type="module">
+  (() => {
+    const el = document.getElementById("demo-{{ name }}");
+    const src = "{{ get_url(path='demos/' ~ name ~ '/' ~ name ~ '.js', trailing_slash=false) | safe }}";
+    let started = false;
+    const boot = async () => {
+      if (started) return; started = true;
+      try {
+        const mod = await import(src);
+        await (mod.default ? mod.default() : Promise.resolve());
+        if (typeof mod.mount === "function") mod.mount(el);
+      } catch (e) {
+        el.classList.add("demo-error");
+        el.innerHTML = "<p>Demo failed to load. Run <code>just demos</code> to build it.</p>";
+        console.error("demo {{ name }} failed:", e);
+      }
+    };
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((ents) => {
+        for (const e of ents) if (e.isIntersecting) { io.disconnect(); boot(); }
+      }, { rootMargin: "200px" });
+      io.observe(el);
+    } else { boot(); }
+  })();
+</script>
