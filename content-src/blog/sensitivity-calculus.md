@@ -2,8 +2,7 @@
 title = "Obstacles to the Calculus of Sensitivity"
 date = 2020-10-16
 aliases = ["/sensitivity-calculus/"]
-[taxonomies]
-tags = ["differential-privacy"]
+# hidden post: no taxonomies, so it can't leak ghost tags/series
 [extra]
 hidden = true
 +++

@@ -1,6 +1,7 @@
 // =============================================================================
-// Theme — "editorial-technical". Refined serif reading body for long-form math,
-// sans-serif UI chrome, one restrained accent. Light + dark via CSS variables
+// Theme — "Ciphertext". Serif reading body for long-form math over a cyan
+// terminal ground, with monospace UI chrome and a few terminal motifs (prompt
+// glyphs, a blinking cursor on the post title). Light + dark via CSS variables
 // (auto by prefers-color-scheme, overridable by [data-theme] from the toggle).
 // Everything visual lives in variables below — swap them to re-skin the site.
 // =============================================================================
@@ -16,46 +17,54 @@ $mono: "JetBrains Mono", "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
 :root {
   --measure: 40rem;
 
-  --bg: #fbfbf9;
-  --surface: #f2f1ea;
-  --fg: #1c1c1a;
-  --muted: #6b6b63;
-  --border: #e3e2da;
-  --accent: #2f56ab;
-  --accent-hover: #23448c;
+  // Font roles as variables so a theme can swap them by setting these alone.
+  // Ciphertext: serif reading body, everything else (display + chrome) monospace.
+  --f-body: #{$serif};
+  --f-display: #{$mono};
+  --f-ui: #{$mono};
+  --f-mono: #{$mono};
+
+  // Light (cyan) palette — the default; dark below via OS pref / toggle.
+  --bg: #eef3f4;
+  --surface: #e2eaec;
+  --fg: #21241f;
+  --muted: #6a6d5f;
+  --border: #cfdadd;
+  --accent: #157a8c;
+  --accent-hover: #115f6d;
   --accent-contrast: #ffffff;
-  --tag-bg: #eaeef8;
-  --tag-fg: #2f56ab;
-  --note-bg: #edf1fb;
-  --note-border: #2f56ab;
-  --warn-bg: #fbf1e7;
-  --warn-border: #c06a2b;
-  --code-bg: #1e1e2e;   // catppuccin-mocha base (build-time syntax theme)
-  --code-fg: #cdd6f4;
-  --selection: #cfe0ff;
+  --tag-bg: #e2eaec;
+  --tag-fg: #157a8c;
+  --note-bg: #e2eaec;
+  --note-border: #157a8c;
+  --warn-bg: #f2e6d6;
+  --warn-border: #9c5a28;
+  --code-bg: #14170f;   // dark code block even in light mode (terminal feel)
+  --code-fg: #cfe6cf;
+  --selection: #cfdadd;
 }
 
 // Dark palette, shared by the OS-preference path and the explicit toggle.
 // A mixin (not @extend) — Sass cannot @extend a placeholder across @media
 // boundaries, which silently drops the prefers-color-scheme guard.
 @mixin dark-vars {
-  --bg: #15151a;
-  --surface: #1e1e26;
-  --fg: #e6e5dd;
-  --muted: #9b998f;
-  --border: #2c2c34;
-  --accent: #8fb0ff;
-  --accent-hover: #b0c6ff;
-  --accent-contrast: #15151a;
-  --tag-bg: #23232c;
-  --tag-fg: #a9c1ff;
-  --note-bg: #1a2033;
-  --note-border: #6f8fe0;
-  --warn-bg: #2a2018;
-  --warn-border: #c98a54;
-  --code-bg: #181825;
-  --code-fg: #cdd6f4;
-  --selection: #2c3a63;
+  --bg: #0b1013;
+  --surface: #121a1e;
+  --fg: #d7ddd6;
+  --muted: #808d7e;
+  --border: #1e2a30;
+  --accent: #4fc4d6;
+  --accent-hover: #74d6e4;
+  --accent-contrast: #0b1013;
+  --tag-bg: #121a1e;
+  --tag-fg: #4fc4d6;
+  --note-bg: #121a1e;
+  --note-border: #4fc4d6;
+  --warn-bg: #241a12;
+  --warn-border: #d97a45;
+  --code-bg: #070c0f;
+  --code-fg: #cfe6cf;
+  --selection: #1e2a30;
 }
 
 // Auto: follow the OS, unless the reader forced light.
@@ -71,7 +80,7 @@ $mono: "JetBrains Mono", "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
 html { -webkit-text-size-adjust: 100%; }
 
 body {
-  font-family: $serif;
+  font-family: var(--f-body);
   font-size: 1.125rem;
   line-height: 1.7;
   color: var(--fg);
@@ -95,7 +104,7 @@ a {
 a:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
 
 h1, h2, h3, h4 {
-  font-family: $serif;
+  font-family: var(--f-display);
   line-height: 1.2;
   font-weight: 650;
   margin: 2.4rem 0 0.9rem;
@@ -119,7 +128,7 @@ blockquote {
 img { max-width: 100%; height: auto; }
 
 // ---- Code -------------------------------------------------------------------
-code, pre, kbd, samp { font-family: $mono; }
+code, pre, kbd, samp { font-family: var(--f-mono); }
 :not(pre) > code {
   font-size: 0.88em;
   background: var(--surface);
@@ -148,7 +157,7 @@ table {
   overflow-x: auto;
 }
 th, td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: left; }
-th { font-family: $sans; font-size: 0.85rem; letter-spacing: 0.02em; }
+th { font-family: var(--f-ui); font-size: 0.85rem; letter-spacing: 0.02em; }
 
 // ---- Masthead / nav ---------------------------------------------------------
 .masthead {
@@ -162,7 +171,7 @@ th { font-family: $sans; font-size: 0.85rem; letter-spacing: 0.02em; }
   margin-bottom: 2.5rem;
 
   .site-name {
-    font-family: $serif;
+    font-family: var(--f-display);
     font-weight: 650;
     font-size: 1.2rem;
     text-decoration: none;
@@ -170,7 +179,7 @@ th { font-family: $sans; font-size: 0.85rem; letter-spacing: 0.02em; }
     letter-spacing: -0.01em;
   }
   nav {
-    font-family: $sans;
+    font-family: var(--f-ui);
     font-size: 0.92rem;
     display: flex;
     align-items: center;
@@ -182,7 +191,7 @@ th { font-family: $sans; font-size: 0.85rem; letter-spacing: 0.02em; }
 
 // Theme toggle button
 .theme-toggle {
-  font-family: $sans;
+  font-family: var(--f-ui);
   background: none;
   border: 1px solid var(--border);
   color: var(--muted);
@@ -200,7 +209,7 @@ th { font-family: $sans; font-size: 0.85rem; letter-spacing: 0.02em; }
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0.5rem 0.8rem;
-  font-family: $sans;
+  font-family: var(--f-ui);
   font-size: 0.85rem;
   color: var(--muted);
   margin-bottom: 1.5rem;
@@ -213,7 +222,7 @@ time { color: var(--muted); }
   color: var(--tag-fg);
   background: var(--tag-bg);
   padding: 0.12rem 0.55rem;
-  border-radius: 999px;
+  border-radius: 3px;
 }
 .tag:hover { filter: brightness(0.97); text-decoration: none; }
 
@@ -222,7 +231,7 @@ time { color: var(--muted); }
 .post-summary h2 { margin: 0 0 0.2rem; font-size: 1.3rem; }
 .post-summary h2 a { text-decoration: none; }
 .post-summary h2 a:hover { text-decoration: underline; }
-.post-summary time { font-family: $sans; font-size: 0.85rem; }
+.post-summary time { font-family: var(--f-ui); font-size: 0.85rem; }
 
 // ---- Heading anchors (insert_anchor_links = "left") -------------------------
 .zola-anchor {
@@ -241,7 +250,7 @@ h3:hover .zola-anchor, h4:hover .zola-anchor { opacity: 0.6; }
 
 // ---- Table of contents ------------------------------------------------------
 .toc {
-  font-family: $sans;
+  font-family: var(--f-ui);
   margin: 1.5rem 0 2rem;
   padding: 0.6rem 1rem;
   background: var(--surface);
@@ -261,7 +270,7 @@ h3:hover .zola-anchor, h4:hover .zola-anchor { opacity: 0.6; }
 
 // ---- Series navigation ------------------------------------------------------
 .series-nav {
-  font-family: $sans;
+  font-family: var(--f-ui);
   margin: 1.5rem 0 2rem;
   padding: 0.8rem 1rem;
   background: var(--note-bg);
@@ -282,7 +291,7 @@ h3:hover .zola-anchor, h4:hover .zola-anchor { opacity: 0.6; }
   margin-top: 3rem;
   padding-top: 1.2rem;
   border-top: 1px solid var(--border);
-  font-family: $sans;
+  font-family: var(--f-ui);
   font-size: 0.92rem;
 
   a { text-decoration: none; }
@@ -291,7 +300,7 @@ h3:hover .zola-anchor, h4:hover .zola-anchor { opacity: 0.6; }
 }
 
 // ---- Taxonomy pages ---------------------------------------------------------
-.term-list { list-style: none; padding: 0; font-family: $sans; }
+.term-list { list-style: none; padding: 0; font-family: var(--f-ui); }
 .term-list li { margin: 0.4rem 0; }
 .term-list .count { color: var(--muted); font-size: 0.8rem; margin-left: 0.4rem; }
 
@@ -304,7 +313,7 @@ h3:hover .zola-anchor, h4:hover .zola-anchor { opacity: 0.6; }
   font-size: 0.98rem;
 
   .callout-title {
-    font-family: $sans;
+    font-family: var(--f-ui);
     font-weight: 650;
     font-size: 0.9rem;
     margin: 0 0 0.4rem;
@@ -323,7 +332,7 @@ h3:hover .zola-anchor, h4:hover .zola-anchor { opacity: 0.6; }
 
   img { border-radius: 6px; border: 1px solid var(--border); }
   figcaption {
-    font-family: $sans;
+    font-family: var(--f-ui);
     margin-top: 0.5rem;
     font-size: 0.85rem;
     color: var(--muted);
@@ -332,7 +341,7 @@ h3:hover .zola-anchor, h4:hover .zola-anchor { opacity: 0.6; }
 
 // ---- Interactive wasm demos -------------------------------------------------
 .demo {
-  font-family: $sans;
+  font-family: var(--f-ui);
   margin: 1.8rem 0;
   padding: 1.1rem;
   border: 1px solid var(--border);
@@ -363,7 +372,7 @@ sup a, .footnote-reference a { text-decoration: none; }
 
 // ---- Footer -----------------------------------------------------------------
 .footer {
-  font-family: $sans;
+  font-family: var(--f-ui);
   margin-top: 4.5rem;
   border-top: 1px solid var(--border);
   padding-top: 1.2rem;
@@ -372,6 +381,23 @@ sup a, .footnote-reference a { text-decoration: none; }
 
   a { color: var(--muted); }
   a:hover { color: var(--accent); }
+}
+
+// ---- Ciphertext identity (terminal motifs) ----------------------------------
+// Prompt glyphs on the chrome + a blinking block cursor on the post title only
+// (in-body section headings are also <h1>, so scope the cursor to .post-header).
+.site-name::before { content: "~/"; color: var(--accent); opacity: 0.7; }
+.masthead nav a::before { content: "./"; opacity: 0.5; }
+.post-meta::before { content: "$ "; color: var(--accent); }
+.post-header h1::after {
+  content: "\2588";
+  color: var(--accent);
+  margin-left: 0.15em;
+  animation: ct-blink 1.05s steps(1) infinite;
+}
+@keyframes ct-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .post-header h1::after { animation: none; }
 }
 
 // ---- Small screens ----------------------------------------------------------

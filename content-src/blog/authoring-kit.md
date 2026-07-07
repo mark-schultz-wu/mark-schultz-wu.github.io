@@ -1,8 +1,7 @@
 +++
 title = "Authoring kit reference"
 date = 2026-07-02
-[taxonomies]
-tags = ["meta"]
+# hidden dev smoke-test: no taxonomies, so it can't leak ghost tags/series
 [extra]
 hidden = true
 +++
