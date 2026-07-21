@@ -50,10 +50,14 @@ official zola v0.22.1, runs `wrap_math.py` + `zola build`) and publishes
 `public/` to GitHub Pages. **One-time manual step:** in repo Settings → Pages,
 set Source = "GitHub Actions".
 
-Currently soft-launched on the `github.io` URL (`base_url` in `config.toml`).
-To move to the `mark.schultz-wu.com` custom domain later: point DNS at GitHub
-Pages, set `base_url` to the custom domain, add a `CNAME` file (in `static/`, so
-it lands in `public/`), and set the domain in Settings → Pages.
+Served at the custom domain `mark.schultz-wu.com` (`base_url` in `config.toml`).
+The domain is wired up three ways, all of which must agree:
+
+- `static/CNAME` contains `mark.schultz-wu.com`; Zola copies `static/` into
+  `public/`, so the artifact GitHub Pages publishes carries `public/CNAME`.
+- DNS: a `CNAME` record for host `mark` → `mark-schultz-wu.github.io.`
+  (a subdomain, so a CNAME record; an apex would need A records to GitHub's IPs).
+- Settings → Pages → Custom domain = `mark.schultz-wu.com`, Enforce HTTPS on.
 
 The wasm demos (`just demos`) are **not** built in CI yet — they only appear on
 a hidden page, so they're deferred. Add a `wasm-pack` build step before

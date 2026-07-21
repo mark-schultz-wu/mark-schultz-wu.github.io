@@ -1,9 +1,9 @@
 # Standard Zola config (built with official zola v0.22.1). Content is authored
 # in content-src/ (plain $..$ math) and generated into content/ by
 # scripts/wrap_math.py — build via `just build`.
-# base_url is the github.io soft-launch URL; switch to the custom domain
-# (https://mark.schultz-wu.com + a populated CNAME) once DNS is pointed at Pages.
-base_url = "https://mark-schultz-wu.github.io"
+# Custom domain: served via static/CNAME (copied into public/ at build), with
+# DNS CNAME mark -> mark-schultz-wu.github.io and the domain set in Settings -> Pages.
+base_url = "https://mark.schultz-wu.com"
 title = "Mark Schultz-Wu"
 description = "Lattice & FHE cryptography, and assorted TCS."
 
